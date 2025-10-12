@@ -20,7 +20,8 @@ Unity에서 **2D 오브젝트와 3D 오브젝트 간의 충돌 감지**를 구�
 ---
 
 ## 🎬 인게임 사진
-// 여기에 사진 추가 예정
+<img width="1266" height="711" alt="Image" src="https://github.com/user-attachments/assets/fa5ae2a6-44bd-4d30-98b2-fb06124a542f" />
+<img width="1267" height="716" alt="Image" src="https://github.com/user-attachments/assets/f3faea0f-b9bd-4fbb-9f09-69503685f6ec" />
 
 ---
 
