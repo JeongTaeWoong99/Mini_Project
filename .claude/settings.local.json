@@ -13,11 +13,14 @@
       "Bash(ren:*)",
       "WebFetch(domain:m.ruliweb.com)",
       "Read(//c/Users/ASUS/Desktop/**)",
-      "WebFetch(domain:www.inven.co.kr)"
+      "WebFetch(domain:www.inven.co.kr)",
+      "WebFetch(domain:discussions.unity.com)",
+      "Bash(git diff:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
   },
-  "spinnerTipsEnabled": true,
-  "outputStyle": "korean-terminal"
+  "outputStyle": "korean-terminal",
+  "spinnerTipsEnabled": true
 }
