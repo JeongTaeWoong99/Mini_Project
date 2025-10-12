@@ -5431,7 +5431,7 @@ MonoBehaviour:
   smoothRotation: 1
   rotationDamping: 5
   hitFlashDuration: 0.2
-  maxHP: 20
+  maxHP: 50
   showHPDebug: 1
   bodyTransform: {fileID: 753790916}
   autoFindBody: 1
