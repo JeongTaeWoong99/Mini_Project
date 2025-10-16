@@ -77,3 +77,4 @@ crashlytics-build.properties
 # Exclude Resources folder
 /[Aa]ssets/[Rr]esources/
 /[Aa]ssets/[Rr]esources.meta
+nul
