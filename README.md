@@ -14,9 +14,9 @@
 ```
 Assets/
    └── Project/
-       ├── 2D_3D_Collision(Complete)/    # 완료된 프로젝트
+       ├── 2D_3D_Collision(Complete)/  # 완료된 프로젝트
        │
-       └── [다음 프로젝트]/               # 추가될 프로젝트
+       └── [다음 프로젝트]/             # 추가될 프로젝트
            ├── README.MD
            └── ...
 ```
