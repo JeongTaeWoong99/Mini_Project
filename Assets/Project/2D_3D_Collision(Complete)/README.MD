@@ -57,9 +57,9 @@ Unity의 **Physics2D는 Orthographic 기준**이지만, 카메라는 **Perspecti
 - 맞았는데 충돌 안 되거나, 안 맞았는데 충돌되는 현상
 ```
 
-#### 3️⃣ 해결 방법: 콜라이더 투영 (Projector)
+#### 3️⃣ 해결 방법 : 콜라이더 투영 (Projector)
 **데이브 더 다이버의 솔루션:**
-1. **3D 콜라이더를 2D 평면으로 이동**
+1. **3D 위치에 있는 2D 콜라이더를 2D 평면으로 이동**
    - `WorldToScreenPoint` → `ScreenToWorldPoint` 변환
    - 깊이값을 "카메라 ↔ 플레이어" 거리로 고정
 
