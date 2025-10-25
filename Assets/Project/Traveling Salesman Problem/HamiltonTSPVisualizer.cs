@@ -29,6 +29,15 @@ public class HamiltonTSPVisualizer : MonoBehaviour
             List<int> path = FindValidPath(startIndex);
             DrawPath(path);
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            ClearScene();
+            GenerateNodes();
+            int startIndex = FindCornerClosestNode();
+            List<int> path = FindSimplePath(startIndex);
+            DrawPath(path);
+        }
     }
     
     // 이전에 생성된 오브젝트 및 라인을 모두 제거
@@ -93,14 +102,50 @@ public class HamiltonTSPVisualizer : MonoBehaviour
     {
         List<int> bestPath     = new List<int>();
         float     bestDistance = float.MaxValue;
-    
+
         List<int> currentPath = new List<int> { startIndex };
         bool[] visited        = new bool[nodeCount];
         visited[startIndex]   = true;
-    
+
         TryPaths(currentPath, visited, 0f, ref bestPath, ref bestDistance);
-    
+
         return bestPath;
+    }
+
+    // 선 겹침 체크 없이 가장 가까운 노드를 순차적으로 연결 (Greedy 알고리즘)
+    List<int> FindSimplePath(int startIndex)
+    {
+        List<int> path    = new List<int> { startIndex };
+        bool[] visited    = new bool[nodeCount];
+        visited[startIndex] = true;
+
+        while (path.Count < nodeCount)
+        {
+            int   last               = path[path.Count - 1];
+            int   nearestUnvisited   = -1;
+            float minDist            = float.MaxValue;
+
+            for (int i = 0; i < nodeCount; i++)
+            {
+                if (!visited[i])
+                {
+                    float dist = Vector3.Distance(nodes[last].position, nodes[i].position);
+                    if (dist < minDist)
+                    {
+                        minDist          = dist;
+                        nearestUnvisited = i;
+                    }
+                }
+            }
+
+            if (nearestUnvisited != -1)
+            {
+                visited[nearestUnvisited] = true;
+                path.Add(nearestUnvisited);
+            }
+        }
+
+        return path;
     }
     
     // 백트래킹을 이용해 가능한 모든 경로 중 조건을 만족하는 최단 경로를 찾음
