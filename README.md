@@ -41,6 +41,25 @@ Assets/
 
 ---
 
-### 2. 🚧 다음 프로젝트 준비 중...
+### 2. [LevelUpYourCode - Design Patterns & SOLID Principles](./Assets/Project/LevelUpYourCode/README.md)
+
+**기간 :** 2025.11.24 ~ ∞
+
+**주제 :** 유니티 코리아에서 제공하는 '디자인 패턴 및 SOLID 원칙으로 코딩 스킬 업그레이드 PDF'와 데모 프로젝트를 기반으로 솔리드 원칙과 디자인 패턴 학습 및 이해
+
+**🔍 진행 배경 :**
+실무에서 활용할 수 있는 디자인 패턴과 SOLID 원칙을 체계적으로 학습하고, 각 패턴의 구조와 동작 원리를 깊이 있게 이해하기 위한 학습 프로젝트입니다.
+
+**✨ 핵심 기술 :**
+- **SOLID 원칙** : SRP, OCP, LSP, ISP, DIP
+- **디자인 패턴** : Factory, Object Pool, Singleton, Command, State, Observer, MVP, Strategy, Flyweight, Dirty Flag 등
+
+**📂 학습 내용 :**
+- ✅ [Command Pattern](./Assets/Project/LevelUpYourCode/_DesignPatterns/4_Command/README.md) - 명령 캡슐화 및 Undo/Redo 구현
+- 🚧 다른 패턴들도 학습 진행 중...
+
+---
+
+### 3. 🚧 다음 프로젝트 준비 중...
 
 추후, 새로운 미니 프로젝트 진행 후, 추가 예정...

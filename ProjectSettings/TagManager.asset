@@ -2,9 +2,8 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 3
-  tags:
-  - Shark
+  serializedVersion: 2
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -12,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Clickable
+  - Obstacle
+  - Ground
+  - Player
   - 
   - 
   - 
@@ -42,11 +41,3 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Monster
-    uniqueID: 285190993
-    locked: 0
-  - name: UI
-    uniqueID: 3254991991
-    locked: 0
-  m_RenderingLayers:
-  - Default
