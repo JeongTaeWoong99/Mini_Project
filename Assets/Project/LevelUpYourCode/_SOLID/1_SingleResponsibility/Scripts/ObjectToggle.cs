@@ -3,17 +3,13 @@ using UnityEngine;
 namespace DesignPatterns.SRP
 {
     /// <summary>
-    /// Demo script to toggle between the Player and its unrefactored logic.
+    /// Player와 리팩토링되지 않은 로직 간 전환을 위한 데모 스크립트입니다.
     /// </summary>
     public class ObjectToggle : MonoBehaviour
     {
-        [SerializeField] 
-        GameObject m_FirstObject;
-        [SerializeField] 
-        GameObject m_SecondObject;
-
-        [SerializeField] 
-        KeyCode toggleKey = KeyCode.T; // The key used to toggle objects. Set to 'T' by default.
+        [SerializeField] private GameObject m_FirstObject;
+        [SerializeField] private GameObject m_SecondObject;
+        [SerializeField] private KeyCode    toggleKey = KeyCode.T; // 오브젝트 전환에 사용되는 키. 기본값은 'T'
 
         private void Start()
         {
@@ -22,7 +18,7 @@ namespace DesignPatterns.SRP
 
         private void Update()
         {
-            // Check if the toggle key is pressed.
+            // 토글 키가 눌렸는지 확인
             if (Input.GetKeyDown(toggleKey))
             {
                 SyncObjectPositions();
@@ -31,14 +27,14 @@ namespace DesignPatterns.SRP
         }
 
         /// <summary>
-        /// Toggle the active state of the Player objects.
+        /// Player 오브젝트의 활성 상태를 전환합니다.
         /// </summary>
         public void ToggleObjects()
         {
-            // Ensure both objects are assigned to prevent null reference errors.
+            // null 참조 에러를 방지하기 위해 두 오브젝트가 할당되었는지 확인
             if (m_FirstObject == null || m_SecondObject == null)
             {
-                Debug.LogWarning("[ObjectToggle] ToggleObjects: One or both objects are unassigned.");
+                Debug.LogWarning("[ObjectToggle] ToggleObjects : 하나 또는 두 오브젝트가 할당되지 않았습니다.");
                 return;
             }
 
@@ -47,13 +43,13 @@ namespace DesignPatterns.SRP
         }
 
         /// <summary>
-        /// Sync the inactive object to the active object.
+        /// 비활성 오브젝트를 활성 오브젝트와 동기화합니다.
         /// </summary>
         public void SyncObjectPositions()
         {
             if (m_FirstObject == null || m_SecondObject == null)
             {
-                Debug.LogWarning("[ObjectToggle] SyncObjectPositions: One or both objects are unassigned.");
+                Debug.LogWarning("[ObjectToggle] SyncObjectPositions : 하나 또는 두 오브젝트가 할당되지 않았습니다.");
                 return;
             }
 

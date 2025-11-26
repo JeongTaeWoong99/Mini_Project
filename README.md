@@ -55,8 +55,14 @@ Assets/
 - **디자인 패턴** : Factory, Object Pool, Singleton, Command, State, Observer, MVP, Strategy, Flyweight, Dirty Flag 등
 
 **📂 학습 내용 :**
+
+**SOLID 원칙 :**
+- ✅ [Single Responsibility Principle (SRP)](./Assets/Project/LevelUpYourCode/_SOLID/1_SingleResponsibility/README.md) - 단일 책임 원칙
+- 🚧 다른 원칙들 학습 예정...
+
+**디자인 패턴 :**
 - ✅ [Command Pattern](./Assets/Project/LevelUpYourCode/_DesignPatterns/4_Command/README.md) - 명령 캡슐화 및 Undo/Redo 구현
-- 🚧 다른 패턴들도 학습 진행 중...
+- 🚧 다른 패턴들 학습 진행 중...
 
 ---
 

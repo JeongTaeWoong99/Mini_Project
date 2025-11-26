@@ -6,19 +6,15 @@ using UnityEngine;
 namespace DesignPatterns.SRP
 {
     /// <summary>
-    /// Plays an example sound effect when colliding with a wall or obstacle.
+    /// 벽이나 장애물과 충돌할 때 효과음을 재생합니다.
     /// </summary>
-
     public class PlayerAudio : MonoBehaviour
     {
-        [SerializeField] 
-        float m_CooldownTime = 2f;
+        [SerializeField] private float       m_CooldownTime  = 2f;
+        [SerializeField] private AudioClip[] m_BounceClips;
 
-        [SerializeField]
-        AudioClip[] m_BounceClips;
-
-        float m_LastTimePlayed;
-        AudioSource m_AudioSource;
+        private float       m_LastTimePlayed;
+        private AudioSource m_AudioSource;
 
         void Awake()
         {
@@ -32,13 +28,13 @@ namespace DesignPatterns.SRP
 
         public void PlayRandomClip()
         {
-            // Calculate the time to play the next clip.            
+            // 다음 클립을 재생할 시간 계산
             float timeToNextPlay = m_CooldownTime + m_LastTimePlayed;
 
-            // Check if the cooldown time has passed.
+            // 쿨다운 시간이 지났는지 확인
             if (Time.time > timeToNextPlay)
             {
-                m_LastTimePlayed = Time.time;
+                m_LastTimePlayed   = Time.time;
                 m_AudioSource.clip = GetRandomClip();
                 m_AudioSource.Play();
             }
@@ -46,7 +42,7 @@ namespace DesignPatterns.SRP
 
         private AudioClip GetRandomClip()
         {
-            // Get a random clip from the array based on the number of clips in it.
+            // 배열의 클립 수를 기반으로 무작위 클립 가져오기
             int randomIndex = UnityEngine.Random.Range(0, m_BounceClips.Length);
             return m_BounceClips[randomIndex];
         }

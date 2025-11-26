@@ -6,34 +6,28 @@ namespace DesignPatterns.SRP
 {
     public class PlayerInput : MonoBehaviour
     {
-        // Inspector fields
         [Header("Controls")]
-        [Tooltip("Use WASD keys to move")]
-        [SerializeField] private KeyCode m_ForwardKey = KeyCode.W;
+        [Tooltip("WASD 키를 사용하여 이동")]
+        [SerializeField] private KeyCode m_ForwardKey  = KeyCode.W;
         [SerializeField] private KeyCode m_BackwardKey = KeyCode.S;
-        [SerializeField] private KeyCode m_LeftKey = KeyCode.A;
-        [SerializeField] private KeyCode m_RightKey = KeyCode.D;
+        [SerializeField] private KeyCode m_LeftKey     = KeyCode.A;
+        [SerializeField] private KeyCode m_RightKey    = KeyCode.D;
 
-        // Private members
         private Vector3 m_InputVector;
-        private float m_XInput;
-        private float m_ZInput;
-        private float m_YInput;
+        private float   m_XInput;
+        private float   m_ZInput;
+        private float   m_YInput;
 
-        // Properties
         public Vector3 InputVector => m_InputVector;
 
-        // MonoBehaviour methods
         private void Update()
         {
             HandleInput();
         }
 
-        // Methods
         public void HandleInput()
         {
-
-            // Reset input values to zero at the beginning of each frame
+            // 각 프레임 시작 시 입력 값을 0으로 초기화
             m_XInput = 0;
             m_ZInput = 0;
 

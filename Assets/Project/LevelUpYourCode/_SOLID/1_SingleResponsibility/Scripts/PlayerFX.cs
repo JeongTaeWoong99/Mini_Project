@@ -6,24 +6,23 @@ namespace DesignPatterns.SRP
 {
     public class PlayerFX : MonoBehaviour
     {
-        [SerializeField]
-        ParticleSystem m_ParticleSystem;
+        [SerializeField] private ParticleSystem m_ParticleSystem;
 
-        // Cooldown time between particle system plays.
+        // 파티클 시스템 재생 간 쿨다운 시간
         const float k_Cooldown = 1f;
 
-        float m_TimeToNextPlay = -1f;
+        private float m_TimeToNextPlay = -1f;
 
         public void PlayEffect()
         {
-            // Check if the cooldown time has passed.
+            // 쿨다운 시간이 지났는지 확인
             if (Time.time < m_TimeToNextPlay)
                 return;
 
-            // Play the particle system effect if it is not null.
+            // 파티클 시스템이 null이 아닌 경우 이펙트 재생
             if (m_ParticleSystem != null)
             {
-                // Stop the particle system before playing it again to avoid overlapping effects.
+                // 중복 효과를 방지하기 위해 재생 전 파티클 시스템 정지
                 m_ParticleSystem.Stop();
                 m_ParticleSystem.Play();
 

@@ -6,62 +6,60 @@ using UnityEngine.UIElements;
 namespace DesignPatterns.SRP
 {
     /// <summary>
-    /// Demonstrates a non-Single Responsibility Principle (SRP) approach to player functionality in Unity.
-    /// 
-    /// This script merges multiple responsibilities like movement control, input handling,
-    /// audio management, and particle effects into a single class. 
-    /// 
-    /// While currently manageable due to its small size, this approach may lead to difficulties in scaling,
-    /// maintaining, and extending the code. 
+    /// Unity에서 단일 책임 원칙(SRP)을 따르지 않는 플레이어 기능의 예시입니다.
+    ///
+    /// 이 스크립트는 이동 제어, 입력 처리, 오디오 관리, 파티클 효과 등
+    /// 여러 책임을 하나의 클래스에 병합합니다.
+    ///
+    /// 현재는 작은 크기로 인해 관리 가능하지만, 이러한 접근 방식은 코드의 확장,
+    /// 유지보수, 확장에 어려움을 초래할 수 있습니다.
     /// </summary>
     public class UnrefactoredPlayer : MonoBehaviour
     {
-
         [Header("Movement")]
-        [Tooltip("Horizontal speed")]
-        [SerializeField] private float moveSpeed = 5f;
-        [Tooltip("Rate of change for move speed")]
+        [Tooltip("수평 이동 속도")]
+        [SerializeField] private float moveSpeed    = 5f;
+        [Tooltip("이동 속도 변화율")]
         [SerializeField] private float acceleration = 10f;
-        [Tooltip("Deceleration rate when no input is provided")]
+        [Tooltip("입력이 없을 때의 감속율")]
         [SerializeField] private float deceleration = 5f;
 
         [Header("Controls")]
-        [Tooltip("Use WASD keys to move")]
-        [SerializeField] private KeyCode forwardKey = KeyCode.W;
+        [Tooltip("WASD 키를 사용하여 이동")]
+        [SerializeField] private KeyCode forwardKey  = KeyCode.W;
         [SerializeField] private KeyCode backwardKey = KeyCode.S;
-        [SerializeField] private KeyCode leftKey = KeyCode.A;
-        [SerializeField] private KeyCode rightKey = KeyCode.D;
+        [SerializeField] private KeyCode leftKey     = KeyCode.A;
+        [SerializeField] private KeyCode rightKey    = KeyCode.D;
 
         [Header("Collision")]
         [SerializeField] private LayerMask obstacleLayer;
 
         [Header("Audio")]
         [SerializeField] private AudioClip[] bounceClips;
-        [SerializeField] private float audioCooldownTime = 2f;
+        [SerializeField] private float       audioCooldownTime = 2f;
         private float lastAudioPlayedTime;
 
         [Header("Effects")]
         [SerializeField] private ParticleSystem m_ParticleSystem;
-        private const float effectCooldown = 1f;
-        private float timeToNextEffect = -1f;
+        private const float effectCooldown   = 1f;
+        private float       timeToNextEffect = -1f;
 
-        private Vector3 inputVector;
-        private float currentSpeed = 0f;
+        private Vector3             inputVector;
+        private float               currentSpeed = 0f;
         private CharacterController charController;
-        private float initialYPosition;
-        private AudioSource audioSource;
+        private float               initialYPosition;
+        private AudioSource         audioSource;
 
         private void Awake()
         {
-            charController = GetComponent<CharacterController>();
+            charController   = GetComponent<CharacterController>();
             initialYPosition = transform.position.y;
-            audioSource = GetComponent<AudioSource>();
+            audioSource      = GetComponent<AudioSource>();
         }
 
         private void Start()
         {
             lastAudioPlayedTime = -audioCooldownTime;
-
         }
 
         private void Update()
@@ -72,7 +70,7 @@ namespace DesignPatterns.SRP
 
         private void HandleInput()
         {
-            // Reset input vector
+            // 입력 벡터 초기화
             float xInput = 0;
             float zInput = 0;
 
@@ -95,7 +93,7 @@ namespace DesignPatterns.SRP
                 if (currentSpeed > 0)
                 {
                     currentSpeed -= deceleration * Time.deltaTime;
-                    currentSpeed = Mathf.Max(currentSpeed, 0);
+                    currentSpeed  = Mathf.Max(currentSpeed, 0);
                 }
             }
             else
@@ -103,18 +101,18 @@ namespace DesignPatterns.SRP
                 currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * acceleration);
             }
 
-            Vector3 movement = inputVector.normalized * currentSpeed * Time.deltaTime;
+            Vector3 movement    = inputVector.normalized * currentSpeed * Time.deltaTime;
             charController.Move(movement);
             transform.position = new Vector3(transform.position.x, initialYPosition, transform.position.z);
         }
 
         public void PlayRandomAudioClip()
         {
-            // If the time to play the next clip has passed and there are clips available we play a random clip.
+            // 다음 클립을 재생할 시간이 지났고 사용 가능한 클립이 있으면 무작위 클립을 재생합니다.
             if (Time.time > (audioCooldownTime + lastAudioPlayedTime))
             {
                 lastAudioPlayedTime = Time.time;
-                audioSource.clip = bounceClips[Random.Range(0, bounceClips.Length)];
+                audioSource.clip    = bounceClips[Random.Range(0, bounceClips.Length)];
                 audioSource.Play();
             }
         }
@@ -134,13 +132,12 @@ namespace DesignPatterns.SRP
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
-            // Check if the collided object's layer is in the obstacleLayer LayerMask.
+            // 충돌한 오브젝트의 레이어가 obstacleLayer LayerMask에 포함되어 있는지 확인
             if ((obstacleLayer.value & (1 << hit.gameObject.layer)) > 0)
             {
                 PlayRandomAudioClip();
                 PlayEffect();
             }
-
         }
 
     }
