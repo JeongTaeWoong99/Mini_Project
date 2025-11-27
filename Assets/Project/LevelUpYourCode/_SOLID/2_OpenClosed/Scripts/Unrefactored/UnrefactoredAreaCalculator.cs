@@ -1,12 +1,12 @@
 using UnityEngine;
 
 namespace DesignPatterns.OCP
-{ 
-    public class UnrefactoredAreaCalculator 
+{
+    public class UnrefactoredAreaCalculator
     {
-        // Non-SOLID implementation: not using Open-Closed principle. Though
-        // this approach works well with a small number of effects, it does
-        // not scale and becomes unwieldy as the project grows.
+        // Non-SOLID 구현 : 개방-폐쇄 원칙을 사용하지 않습니다.
+        // 이 접근 방식은 적은 수의 효과에서는 잘 작동하지만,
+        // 프로젝트가 커지면 확장성이 떨어지고 다루기 어려워집니다.
 
         public float GetRectangleArea(Rectangle rectangle)
         {
@@ -17,9 +17,9 @@ namespace DesignPatterns.OCP
         {
             return circle.Radius * circle.Radius * Mathf.PI;
         }
-        
-        // Adds additional methods with additional shapes
-        // e.g GetPentagonArea, GetHexagonArea, etc.
+
+        // 추가 도형에 대한 추가 메서드
+        // 예 : GetPentagonArea, GetHexagonArea 등
     }
 
     public class Rectangle

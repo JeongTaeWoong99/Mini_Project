@@ -3,16 +3,16 @@ using UnityEngine;
 namespace DesignPatterns.OCP
 {
     /// <summary>
-    /// Class to show the effect for a hexagon.
+    /// 육각형 효과를 표시하는 클래스.
     ///
-    /// Each area of effect can implement its own unique formula for calculating area. 
-    /// Creating a new AreaOfEffect does not impact the existing ones, following the
-    /// Open Closed Principle.
+    /// 각 효과 영역은 고유한 면적 계산 공식을 구현할 수 있습니다.
+    /// 새로운 AreaOfEffect를 생성해도 기존 클래스에 영향을 주지 않으며,
+    /// 이는 개방-폐쇄 원칙(Open Closed Principle)을 따릅니다.
     /// </summary>
     public class HexagonalEffect : AreaOfEffect
     {
         [Header("Shape")]
-        [Tooltip("The side length of the hexagon")]
+        [Tooltip("육각형의 한 변 길이")]
         [SerializeField] private float m_SideLength;
 
         public override float CalculateArea()
