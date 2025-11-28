@@ -59,6 +59,7 @@ Assets/
 **SOLID 원칙 :**
 - ✅ [Single Responsibility Principle (SRP)](./Assets/Project/LevelUpYourCode/_SOLID/1_SingleResponsibility/README.md) - 단일 책임 원칙
 - ✅ [Open-Closed Principle (OCP)](./Assets/Project/LevelUpYourCode/_SOLID/2_OpenClosed/README.MD) - 개방-폐쇄 원칙
+- ✅ [Liskov Substitution Principle (LSP)](./Assets/Project/LevelUpYourCode/_SOLID/3_LiskovSubstitution/README.md) - 리스코프 치환 원칙
 - 🚧 다른 원칙들 학습 예정...
 
 **디자인 패턴 :**
