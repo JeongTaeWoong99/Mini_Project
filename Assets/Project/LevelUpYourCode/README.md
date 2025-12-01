@@ -40,7 +40,7 @@
 | **OCP**<br>Open-Closed | 개방-폐쇄 원칙 : 확장에는 열려있고, 수정에는 닫혀있어야 한다 | [✅ 완료](./_SOLID/2_OpenClosed/README.MD) |
 | **LSP**<br>Liskov Substitution | 리스코프 치환 원칙 : 하위 클래스는 상위 클래스를 대체할 수 있어야 한다 | [✅ 완료](./_SOLID/3_LiskovSubstitution/README.md) |
 | **ISP**<br>Interface Segregation | 인터페이스 분리 원칙 : 클라이언트는 사용하지 않는 인터페이스에 의존하지 않아야 한다 | [✅ 완료](./_SOLID/4_InterfaceSegregation/README.md) |
-| **DIP**<br>Dependency Inversion | 의존성 역전 원칙 : 구체화가 아닌 추상화에 의존해야 한다 | 🚧 예정 |
+| **DIP**<br>Dependency Inversion | 의존 역전 원칙 : 구체화가 아닌 추상화에 의존해야 한다 | [✅ 완료](./_SOLID/5_DependencyInversion/README.md) |
 
 ---
 
@@ -76,11 +76,11 @@
 ```
 LevelUpYourCode/
 ├── _SOLID/                          # SOLID 원칙 예제
-│   ├── 1_SingleResponsibility/      # 단일 책임 원칙
-│   ├── 2_OpenClosed/                # 개방-폐쇄 원칙
-│   ├── 3_LiskovSubstitution/        # 리스코프 치환 원칙
-│   ├── 4_InterfaceSegregation/      # 인터페이스 분리 원칙
-│   └── 5_DependencyInversion/       # 의존성 역전 원칙
+│   ├── 1_SingleResponsibility/      # ✅ 단일 책임 원칙 (완료)
+│   ├── 2_OpenClosed/                # ✅ 개방-폐쇄 원칙 (완료)
+│   ├── 3_LiskovSubstitution/        # ✅ 리스코프 치환 원칙 (완료)
+│   ├── 4_InterfaceSegregation/      # ✅ 인터페이스 분리 원칙 (완료)
+│   └── 5_DependencyInversion/       # ✅ 의존성 역전 원칙 (완료)
 │
 ├── _DesignPatterns/                 # 디자인 패턴 예제
 │   ├── 1_Factory/                   # 팩토리 패턴
@@ -110,7 +110,7 @@ LevelUpYourCode/
 - ✅ Open-Closed Principle (OCP) - 완료 (2025.11.27)
 - ✅ Liskov Substitution Principle (LSP) - 완료 (2025.11.28)
 - ✅ Interface Segregation Principle (ISP) - 완료 (2025.12.01)
-- 🚧 다른 원칙들 학습 예정...
+- ✅ Dependency Inversion Principle (DIP) - 완료 (2025.12.01)
 
 ### 디자인 패턴
 - ✅ Command Pattern - 완료 (2025.11.24)
@@ -118,4 +118,6 @@ LevelUpYourCode/
 
 ---
 
-**마지막 업데이트 :** 2025.12.01
+---
+
+**마지막 업데이트 :** 2025.12.01 (✅ SOLID 원칙 전체 완료!)

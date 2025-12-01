@@ -9,12 +9,12 @@ namespace DesignPatterns.DIP
     {
         public void Open()
         {
-            Debug.Log("The door is open.");
+            Debug.Log("도어가 열렸습니다.");
         }
 
         public void Close()
         {
-            Debug.Log("The door is closed.");
+            Debug.Log("도어가 닫혔습니다.");
         }
     }
 }

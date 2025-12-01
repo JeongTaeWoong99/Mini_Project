@@ -7,62 +7,62 @@ namespace DesignPatterns.DIP
 {
 
     /// <summary>
-    /// A Door component that opens and closes two sliding doors. This class demonstrates the Dependency Inversion
-    /// Principle (DIP) by being controllable through an abstract interface, ISwitchable. This decouples the door
-    /// from the switch that is triggering it.
+    /// 두 개의 슬라이딩 도어를 열고 닫는 Door 컴포넌트입니다.
+    /// 이 클래스는 추상 인터페이스 ISwitchable을 통해
+    /// 제어될 수 있도록 함으로써 의존 역전 원칙(DIP)을 보여줍니다. 이를 통해 도어를 트리거하는
+    /// 스위치로부터 도어를 분리합니다.
     /// </summary>
     public class Door : MonoBehaviour, ISwitchable
     {
-        [Tooltip("The left sliding door")]
+        [Tooltip("왼쪽 슬라이딩 도어")]
         [SerializeField] private Transform m_LeftDoor;
-        [Tooltip("The right sliding door")]
+        [Tooltip("오른쪽 슬라이딩 도어")]
         [SerializeField] private Transform m_RightDoor;
-        [Tooltip("Offset position to slide the left door open")]
+        [Tooltip("왼쪽 도어를 열 때의 오프셋 위치")]
         [SerializeField] private Vector3 m_LeftDoorOffset;
-        [Tooltip("Offset position to slide the right door open")]
+        [Tooltip("오른쪽 도어를 열 때의 오프셋 위치")]
         [SerializeField] private Vector3 m_RightDoorOffset;
-        [Tooltip("Door open and close speed")]
+        [Tooltip("도어 열림/닫힘 속도")]
         [SerializeField] private float m_Speed = 5f;
         
-        // Cache door positions
+        // 도어 위치 캐싱
         private Vector3 m_LeftDoorStartPosition;
         private Vector3 m_RightDoorStartPosition;
         private Vector3 m_LeftDoorEndPosition;
         private Vector3 m_RightDoorEndPosition;
 
-        // Tracks whether the doors are currently in the open state.
+        // 도어가 현재 열린 상태인지 추적합니다.
         private bool m_IsActive;
-        public bool IsActive => m_IsActive;
-
+        public bool IsActive => m_IsActive; // 읽기 전용
         
         private void Start()
         {
-            // Assumes the door transforms start in closed position
-            m_LeftDoorStartPosition = m_LeftDoor.position;
+            // 도어 트랜스폼이 닫힌 위치에서 시작한다고 가정합니다.
+            m_LeftDoorStartPosition  = m_LeftDoor.position;
             m_RightDoorStartPosition = m_RightDoor.position;
-            m_LeftDoorEndPosition = m_LeftDoorStartPosition + m_LeftDoorOffset;
-            m_RightDoorEndPosition = m_RightDoorStartPosition + m_RightDoorOffset;
+            m_LeftDoorEndPosition    = m_LeftDoorStartPosition + m_LeftDoorOffset;
+            m_RightDoorEndPosition   = m_RightDoorStartPosition + m_RightDoorOffset;
         }
 
-        /// Opens the doors, moving them to their designated open positions.
+        /// 도어를 열고, 지정된 열림 위치로 이동시킵니다.
         public void Activate()
         {
             m_IsActive = true;
-            Debug.Log("The door is open.");
+            Debug.Log("도어가 열렸습니다.");
             StartCoroutine(SlideDoor(m_LeftDoor, m_LeftDoorEndPosition, m_Speed));
             StartCoroutine(SlideDoor(m_RightDoor, m_RightDoorEndPosition, m_Speed));
         }
 
-        /// Closes the doors, moving them back to their start positions.
+        /// 도어를 닫고, 시작 위치로 되돌립니다.
         public void Deactivate()
         {
             m_IsActive = false;
-            Debug.Log("The door is closed.");
+            Debug.Log("도어가 닫혔습니다.");
             StartCoroutine(SlideDoor(m_LeftDoor, m_LeftDoorStartPosition, m_Speed));
             StartCoroutine(SlideDoor(m_RightDoor, m_RightDoorStartPosition, m_Speed));
         }
-        
-        // Interpolates a single door toward a specific position
+
+        // 단일 도어를 특정 위치로 보간합니다.
         private IEnumerator SlideDoor(Transform door, Vector3 targetPosition, float speed)
         {
             while (door.position != targetPosition)

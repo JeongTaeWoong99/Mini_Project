@@ -61,7 +61,7 @@ Assets/
 - ✅ [Open-Closed Principle (OCP)](./Assets/Project/LevelUpYourCode/_SOLID/2_OpenClosed/README.MD) - 개방-폐쇄 원칙
 - ✅ [Liskov Substitution Principle (LSP)](./Assets/Project/LevelUpYourCode/_SOLID/3_LiskovSubstitution/README.md) - 리스코프 치환 원칙
 - ✅ [Interface Segregation Principle (ISP)](./Assets/Project/LevelUpYourCode/_SOLID/4_InterfaceSegregation/README.md) - 인터페이스 분리 원칙
-- 🚧 다른 원칙들 학습 예정...
+- ✅ [Dependency Inversion Principle (DIP)](./Assets/Project/LevelUpYourCode/_SOLID/5_DependencyInversion/README.md) - 의존 역전 원칙
 
 **디자인 패턴 :**
 - ✅ [Command Pattern](./Assets/Project/LevelUpYourCode/_DesignPatterns/4_Command/README.md) - 명령 캡슐화 및 Undo/Redo 구현

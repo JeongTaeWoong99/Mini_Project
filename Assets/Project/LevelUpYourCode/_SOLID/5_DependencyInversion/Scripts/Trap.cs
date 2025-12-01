@@ -6,57 +6,57 @@ using UnityEngine;
 namespace DesignPatterns.DIP
 {
     /// <summary>
-    /// The Trap class represents a physics-based trapdoor which implements ISwitchable.
+    /// Trap 클래스는 ISwitchable을 구현하는 물리 기반 트랩도어를 나타냅니다.
     /// </summary>
     public class Trap : MonoBehaviour, ISwitchable
     {
-        // Rigidbody component for physics interactions.
+        // 물리 상호작용을 위한 Rigidbody 컴포넌트
         private Rigidbody m_Rigidbody;
 
-        // Original position of the trap, used for resetting its position.
+        // 트랩의 원래 위치, 위치 리셋에 사용됩니다.
         private Vector3 m_OriginalPosition;
-        
-        // Original rotation of the trap, used for resetting its rotation.
+
+        // 트랩의 원래 회전, 회전 리셋에 사용됩니다.
         private Quaternion m_OriginalRotation;
-        
-        // ISwitchable active state
+
+        // ISwitchable 활성 상태
         private bool m_IsActive;
-        public bool IsActive => m_IsActive;
+        public bool IsActive => m_IsActive; // 읽기 전용
         
         private void Start()
         {
-            // Cache the Physics
+            // 물리 컴포넌트 캐싱
             m_Rigidbody = GetComponent<Rigidbody>();
-            
-            // Disable physics-based movement but allow collision detection and manual movements
+
+            // 물리 기반 이동을 비활성화하지만 충돌 감지와 수동 이동은 허용합니다.
             m_Rigidbody.isKinematic = true;
-            
-            // Cache the original transform values
+
+            // 원래 트랜스폼 값 캐싱
             m_OriginalPosition = transform.position;
             m_OriginalRotation = transform.rotation;
         }
 
-        // Enabling physics and mark it as active.
+        // 물리를 활성화하고 활성 상태로 표시합니다.
         public void Activate()
         {
             m_IsActive = true;
-            Debug.Log("The trap is active.");
+            Debug.Log("트랩이 활성화되었습니다.");
 
             m_Rigidbody.isKinematic = false;
         }
 
-        // Deactivates the trap and marks it as inactive.
+        // 트랩을 비활성화하고 비활성 상태로 표시합니다.
         public void Deactivate()
         {
-            // Reset the Rigidbody to kinematic to disable physics-based movement.
+            // Rigidbody를 kinematic으로 리셋하여 물리 기반 이동을 비활성화합니다.
             m_Rigidbody.isKinematic = true;
             m_IsActive = false;
-            
-            // Reset the trap's position and rotation to their original values.
+
+            // 트랩의 위치와 회전을 원래 값으로 리셋합니다.
             transform.position = m_OriginalPosition;
             transform.rotation = m_OriginalRotation;
-            
-            Debug.Log("The trap is reset.");
+
+            Debug.Log("트랩이 리셋되었습니다.");
         }
     }
 }

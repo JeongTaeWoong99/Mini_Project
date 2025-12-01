@@ -12,13 +12,13 @@ namespace DesignPatterns.DIP
         public void Enable()
         {
             m_IsActive = true;
-            Debug.Log("The trap is active.");
+            Debug.Log("트랩이 활성화되었습니다.");
         }
 
         public void Disable()
         {
             m_IsActive = false;
-            Debug.Log("The trap is inactive.");
+            Debug.Log("트랩이 비활성화되었습니다.");
         }
     }
 }

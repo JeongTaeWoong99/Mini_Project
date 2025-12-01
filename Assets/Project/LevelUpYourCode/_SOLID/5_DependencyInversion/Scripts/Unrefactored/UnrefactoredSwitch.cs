@@ -5,13 +5,12 @@ using UnityEngine;
 namespace DesignPatterns.DIP
 {
     /// <summary>
-    /// Represents a switch mechanism in its unrefactored form, directly controlling a door or trap.
-    /// It directly depends on concrete classes (UnrefactoredDoor, UnrefactoredTrap), which makes it
-    /// less flexible and tightly coupled to the specific implementations of the mechanisms it controls.
+    /// 리팩토링되지 않은 형태의 스위치 메커니즘을 나타내며, 도어나 트랩을 직접 제어합니다.
+    /// 구체적인 클래스(UnrefactoredDoor, UnrefactoredTrap)에 직접 의존하므로
+    /// 유연성이 떨어지고 제어하는 메커니즘의 특정 구현에 강하게 결합되어 있습니다.
     /// </summary>
     public class UnrefactoredSwitch : MonoBehaviour
     {
-
         public UnrefactoredTrap Trap;
         public UnrefactoredDoor Door;
         public bool IsActivated;
