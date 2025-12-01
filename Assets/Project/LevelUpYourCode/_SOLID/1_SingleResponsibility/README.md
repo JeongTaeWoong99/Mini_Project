@@ -839,3 +839,17 @@ public class NetworkManager { }   // 조합
 - 매우 단순한 스크립트 (10~20줄)
 - 한 번만 사용하는 일회성 코드
 - 프로토타입 단계
+
+### 다른 SOLID 원칙과의 관계
+
+**OCP (Open-Closed Principle)와의 관계 :**
+- SRP를 지키면 OCP도 지키기 쉬움
+- 각 클래스가 하나의 책임만 가지므로 확장이 용이
+
+**LSP (Liskov Substitution Principle)와의 관계 :**
+- SRP를 지키면 LSP 위반 가능성이 낮아짐
+- 명확한 책임은 일관된 동작을 보장
+
+**ISP (Interface Segregation Principle)와의 관계 :**
+- SRP는 클래스 레벨, ISP는 인터페이스 레벨의 책임 분리
+- 둘 다 "하나의 책임"이라는 공통 철학

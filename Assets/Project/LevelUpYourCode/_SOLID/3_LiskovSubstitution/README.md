@@ -939,3 +939,17 @@ if (powerUp is UnrefactoredSpeedBoost)
 // ✅ 타입 체크 불필요 = LSP 준수
 powerUp.ApplyEffect(player);  // 모두 일관되게 작동
 ```
+
+### 다른 SOLID 원칙과의 관계
+
+**SRP (Single Responsibility Principle)와의 관계 :**
+- LSP를 지키면 각 클래스의 책임이 명확해짐
+- 일관된 동작은 단일 책임으로 이어짐
+
+**OCP (Open-Closed Principle)와의 관계 :**
+- OCP를 위해서는 LSP가 필수
+- 서브클래스가 부모를 대체할 수 있어야 확장 가능
+
+**ISP (Interface Segregation Principle)와의 관계 :**
+- LSP를 지키면 인터페이스 설계가 명확해짐
+- 대체 가능성은 적절한 인터페이스 분리를 유도

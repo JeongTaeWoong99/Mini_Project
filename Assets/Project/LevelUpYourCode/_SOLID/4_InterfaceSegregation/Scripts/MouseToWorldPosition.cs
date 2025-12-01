@@ -4,23 +4,23 @@ using UnityEngine;
 namespace DesignPatterns.ISP
 {
     /// <summary>
-    /// Translates the mouse's screen position to a position in the 3D world. This can ignore part of the screen
-    /// as a "dead zone".
+    /// 마우스의 스크린 위치를 3D 월드 위치로 변환합니다. 스크린의 일부를
+    /// "데드존"으로 무시할 수 있습니다.
     /// </summary>
     public class MouseToWorldPosition : MonoBehaviour
     {
         [Header("Sprite")]
-        [Tooltip("Sprite to visualize mouse world position")]
+        [Tooltip("마우스 월드 위치를 시각화할 스프라이트")]
         [SerializeField] private SpriteRenderer m_SpriteRenderer;
-        [Tooltip("How much to offset the world position from the mouse")]
+        [Tooltip("마우스에서 월드 위치를 오프셋할 정도")]
         [SerializeField] private Vector3 m_Offset;
-        
+
         [Header("Raycasting parameters")]
-        [Tooltip("Camera to use for raycast")]
+        [Tooltip("레이캐스트에 사용할 카메라")]
         [SerializeField] Camera m_MainCamera;
-        [Tooltip("Limit ray casting to this layer")]
+        [Tooltip("레이 캐스팅을 이 레이어로 제한")]
         [SerializeField] private LayerMask m_LayerMask;
-        [Tooltip("Rectangular screen area to ignore as a dead zone (percentage of screen); (x,y) = (bottom, left)")]
+        [Tooltip("데드존으로 무시할 직사각형 스크린 영역 (스크린의 백분율); (x,y) = (하단, 좌측)")]
         [SerializeField] ScreenDeadZone m_ScreenDeadZone;
 
 
@@ -37,20 +37,20 @@ namespace DesignPatterns.ISP
             
         }
 
-        // Use Raycast to convert mouse position to 3D world coordinate
+        // Raycast를 사용하여 마우스 위치를 3D 월드 좌표로 변환
         private Vector3 GetMouseWorldSpacePosition()
         {
             if (m_MainCamera == null)
             {
-                Debug.Log("[MouseToWorldPosition]: Missing a main camera");
+                Debug.Log("[MouseToWorldPosition]: 메인 카메라가 없습니다");
                 return Vector3.zero;
             }
 
             RaycastHit hit;
-            // Cast a ray from the camera to the mouse position
+            // 카메라에서 마우스 위치로 레이 캐스트
             Ray ray = m_MainCamera.ScreenPointToRay(Input.mousePosition);
 
-            // If the ray hits an object, return the point of intersection
+            // 레이가 객체에 충돌하면, 교차점 반환
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, m_LayerMask))
             {
                 Transform objectHit = hit.transform;

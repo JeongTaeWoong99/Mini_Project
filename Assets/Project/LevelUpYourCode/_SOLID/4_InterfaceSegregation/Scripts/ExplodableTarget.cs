@@ -6,12 +6,12 @@ using UnityEngine;
 namespace DesignPatterns.ISP
 {
     /// <summary>
-    /// Alternative type of target that can explode and instantiate an effect on death. Here we
-    /// inherit from the base Target and add the IExplodable interface
+    /// 폭발할 수 있고 죽을 때 이펙트를 생성하는 대체 타입의 타겟입니다. 여기서는
+    /// 기본 Target을 상속하고 IExplodable 인터페이스를 추가합니다.
     /// </summary>
     public class ExplodableTarget : Target, IExplodable
     {
-         [Tooltip("Effect to instantiate on explosion")]
+        [Tooltip("폭발 시 인스턴스화할 이펙트")]
         [SerializeField] GameObject m_ExplosionPrefab;
 
         protected override void Die()
@@ -27,7 +27,7 @@ namespace DesignPatterns.ISP
                 GameObject instance = Instantiate(m_ExplosionPrefab, transform.position, quaternion.identity);
             }
 
-            // Add custom explosion logic here
+            // 커스텀 폭발 로직을 여기에 추가
         }
     }
 }
