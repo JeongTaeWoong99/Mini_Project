@@ -52,6 +52,7 @@
 
 | 패턴 | 카테고리 | 핵심 개념 | 상세 보기 |
 |------|----------|-----------|-----------|
+| **Singleton** | 생성 패턴 | 단일 인스턴스 보장, 전역 접근 | [📖 상세 보기](./_DesignPatterns/3_Singleton/README.md) |
 | **Command** | 행동 패턴 | 명령 캡슐화, Undo/Redo | [📖 상세 보기](./_DesignPatterns/4_Command/README.md) |
 
 ### 🚧 학습 예정
@@ -60,7 +61,6 @@
 |------|----------|-----------|-----------|
 | **Factory** | 생성 패턴 | 객체 생성 캡슐화 | 🚧 예정 |
 | **Object Pool** | 생성 패턴 | 객체 재사용 | 🚧 예정 |
-| **Singleton** | 생성 패턴 | 단일 인스턴스 보장 | 🚧 예정 |
 | **State** | 행동 패턴 | 상태 기반 행동 변경 | 🚧 예정 |
 | **Observer** | 행동 패턴 | 이벤트 구독/발행 | 🚧 예정 |
 | **Strategy** | 행동 패턴 | 알고리즘 캡슐화 | 🚧 예정 |
@@ -85,7 +85,7 @@ LevelUpYourCode/
 ├── _DesignPatterns/                 # 디자인 패턴 예제
 │   ├── 1_Factory/                   # 팩토리 패턴
 │   ├── 2_ObjectPool/                # 오브젝트 풀 패턴
-│   ├── 3_Singleton/                 # 싱글톤 패턴
+│   ├── 3_Singleton/                 # ✅ 싱글톤 패턴 (완료)
 │   ├── 4_Command/                   # ✅ 커맨드 패턴 (완료)
 │   ├── 5_State/                     # 스테이트 패턴
 │   ├── 6_Observer/                  # 옵저버 패턴
@@ -113,11 +113,10 @@ LevelUpYourCode/
 - ✅ Dependency Inversion Principle (DIP) - 완료 (2025.12.01)
 
 ### 디자인 패턴
+- ✅ Singleton Pattern - 완료 (2025.12.08)
 - ✅ Command Pattern - 완료 (2025.11.24)
 - 🚧 다른 패턴들 학습 진행 중...
 
 ---
 
----
-
-**마지막 업데이트 :** 2025.12.01 (✅ SOLID 원칙 전체 완료!)
+**마지막 업데이트 :** 2025.12.08 (✅ Singleton Pattern 완료!)

@@ -4,19 +4,20 @@ using UnityEngine.Serialization;
 
 namespace DesignPatterns.Singleton
 {
+    // ★☆ LevelUpYourCode 프로젝트에서
+    // 씬을 왔다 갔다 하기 때문에, 씬 전환 시 파괴되는 'Singleton.cs'를 사용함.
+    // 보통은 'PersistentSingleton.cs' 사용
+    
     /// <summary>
-    /// Provides a generic implementation of the Singleton design pattern for MonoBehaviour types.
-    /// Ensures that only one instance of the Singleton exists within the application at any time.
-    /// If no instance is found upon access, this script creates the Instance.
+    /// MonoBehaviour 타입을 위한 싱글톤 디자인 패턴의 제네릭 구현을 제공합니다.
+    /// 애플리케이션 내에서 언제든지 하나의 싱글톤 인스턴스만 존재하도록 보장합니다.
+    /// 접근 시 인스턴스를 찾지 못하면, 이 스크립트가 인스턴스를 생성합니다.
     /// </summary>
-    /// <typeparam name="T">The type of the MonoBehaviour that should be a Singleton.</typeparam>
+    /// <typeparam name="T">싱글톤이 되어야 하는 MonoBehaviour의 타입.</typeparam>
     public class Singleton<T> : MonoBehaviour where T : Component
     {
-
-        [Tooltip("Delays the removal of duplicate instances until explicitly invoked (for demo use only).")]
-        [SerializeField]
-        private bool m_DelayDuplicateRemoval;
-
+        [Tooltip("중복 인스턴스 제거를 명시적으로 호출할 때까지 지연시킵니다 (데모 용도 전용).")]
+        [SerializeField] private bool m_DelayDuplicateRemoval;
 
         private static T s_Instance;
 
@@ -47,14 +48,14 @@ namespace DesignPatterns.Singleton
 
         public virtual void Awake()
         {
-            // For demo purposes, this flag can delay the removal of duplicates
+            // 데모 목적으로, 이 플래그는 중복 제거를 지연시킬 수 있습니다
             if (!m_DelayDuplicateRemoval)
                 RemoveDuplicates();
         }
 
         private void OnEnable()
         {
-            // Clear the single instance when unloading the current scene
+            // 현재 씬을 언로드할 때 싱글 인스턴스를 정리
             SceneManager.sceneUnloaded += SceneManager_SceneUnloaded;
         }
 
@@ -68,7 +69,7 @@ namespace DesignPatterns.Singleton
 
         private static void SetupInstance()
         {
-            // lazy instantiation
+            // 지연 인스턴스화
             s_Instance = (T)FindFirstObjectByType(typeof(T));
 
             if (s_Instance == null)
@@ -87,7 +88,7 @@ namespace DesignPatterns.Singleton
             {
                 s_Instance = this as T;
 
-                // Use DontDestroyOnLoad to make persistent but clean up/dispose manually
+                // 지속성을 위해 DontDestroyOnLoad를 사용하되 수동으로 정리/폐기
                 //DontDestroyOnLoad(gameObject);
             }
             else if (s_Instance != this)
@@ -96,14 +97,14 @@ namespace DesignPatterns.Singleton
             }
         }
 
-        // Event-handling method
-        
-        // Destroy singleton when unloading scene (for demo use only)
+        // 이벤트 처리 메서드
+
+        // 씬 언로드 시 싱글톤 파괴 (데모 용도 전용)
         private void SceneManager_SceneUnloaded(Scene scene)
         {
             if (s_Instance != null)
                 Destroy(s_Instance.gameObject);
-            
+
             s_Instance = null;
         }
     }

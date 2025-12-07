@@ -4,29 +4,30 @@ using UnityEngine;
 
 namespace DesignPatterns.Singleton
 {
+    // ★★ 제일 간단한 버전
+    
     /// <summary>
-    /// Implements a simple version of the Singleton pattern, that ensures
-    /// that only one instance of SimpleSingleton exists. Use the static Instance
-    /// variable for global access.
+    /// 싱글톤 패턴의 간단한 버전을 구현합니다.
+    /// SimpleSingleton의 인스턴스가 하나만 존재하도록 보장합니다.
+    /// 전역 접근을 위해 정적 Instance 변수를 사용하세요.
     ///
-    /// If more than one instance is attempted to be created, the new instances 
-    /// are destroyed. 
+    /// 두 개 이상의 인스턴스를 생성하려고 시도하면 새로운 인스턴스는 파괴됩니다.
     /// </summary>
     public class SimpleSingleton : MonoBehaviour
     {
-        // global access
+        // 전역 접근
         public static SimpleSingleton Instance;
 
         private void Awake()
         {
             if (Instance != null)
             {
-                // if Instance is already set, destroy this duplicate
+                // Instance가 이미 설정되어 있으면, 이 중복 인스턴스를 파괴
                 Destroy(gameObject);
             }
             else
             {
-                // if Instance is not set, make this instance the singleton
+                // Instance가 설정되지 않았으면, 이 인스턴스를 싱글톤으로 설정
                 Instance = this;
             }
         }

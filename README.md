@@ -64,6 +64,7 @@ Assets/
 - ✅ [Dependency Inversion Principle (DIP)](./Assets/Project/LevelUpYourCode/_SOLID/5_DependencyInversion/README.md) - 의존 역전 원칙
 
 **디자인 패턴 :**
+- ✅ [Singleton Pattern](./Assets/Project/LevelUpYourCode/_DesignPatterns/3_Singleton/README.md) - 단일 인스턴스 보장 및 전역 접근
 - ✅ [Command Pattern](./Assets/Project/LevelUpYourCode/_DesignPatterns/4_Command/README.md) - 명령 캡슐화 및 Undo/Redo 구현
 - 🚧 다른 패턴들 학습 진행 중...
 

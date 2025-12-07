@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace DesignPatterns.Singleton
 {
-    // example of using a Generic Singleton for a GameManager
+    // GameManager에 제네릭 싱글톤을 사용하는 예제
     public class GameManager : Singleton<GameManager>
     {
 
