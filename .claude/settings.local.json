@@ -16,7 +16,8 @@
       "WebFetch(domain:www.inven.co.kr)",
       "WebFetch(domain:discussions.unity.com)",
       "Bash(git diff:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(copy:*)"
     ],
     "deny": [],
     "ask": []

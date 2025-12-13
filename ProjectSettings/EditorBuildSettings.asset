@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Project/TDD/TDD.unity
+    guid: 97bb05353320f944b8b3ebe114adf401
+  - enabled: 1
     path: Assets/Project/LevelUpYourCode/Boot.unity
     guid: ea7aa8225b1d2ca4f809482bccf430e9
   - enabled: 1
