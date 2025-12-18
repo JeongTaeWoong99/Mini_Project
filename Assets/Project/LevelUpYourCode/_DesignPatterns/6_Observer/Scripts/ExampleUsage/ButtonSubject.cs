@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+// ★ 서브젝트 안에 클릭 감지를 같이 넣어놓은 형태
+
 namespace DesignPatterns.Observer
 {
     [RequireComponent(typeof(Collider))]
@@ -29,7 +31,7 @@ namespace DesignPatterns.Observer
 
         private void CheckCollider()
         {
-            // Check if the mouse left button is pressed over the collider
+            // 마우스 왼쪽 버튼이 콜라이더 위에서 눌렸는지 확인
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
