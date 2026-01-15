@@ -13,7 +13,9 @@
 ```
 Assets/
    └── Project/
-       ├── 2D_3D_Collision(Complete)/  # 완료된 프로젝트
+       ├── 2D_3D_Collision(Complete)/  # ✅ 완료
+       ├── LevelUpYourCode/            # 🚧 진행 중
+       ├── URP Shader Basic/           # 🚧 진행 중
        │
        └── [다음 프로젝트]/             # 추가될 프로젝트
            ├── README.MD
@@ -71,6 +73,28 @@ Assets/
 
 ---
 
-### 3. 🚧 다음 프로젝트 준비 중...
+### 3. [URP Shader Basic - 셰이더 코딩 입문](./Assets/Project/URP%20Shader%20Basic/README.md)
+
+**기간 :** 2026.01.15 ~ 진행 중
+
+**주제 :** URP 셰이더를 직접 코딩하며 셰이더의 기초 지식 습득
+
+**🔍 진행 배경 :**
+셰이더 그래프를 더 깊이 있게 활용하기 위해, 먼저 셰이더 코드를 직접 작성해보며 렌더링 파이프라인과 셰이더 구조를 이해하고자 시작한 학습 프로젝트입니다.
+
+**✨ 핵심 기술 :**
+- **ShaderLab** : Unity 셰이더 구조 (Shader, Properties, SubShader, Pass)
+- **HLSL** : 버텍스/프래그먼트 셰이더 작성
+- **URP** : Universal Render Pipeline 이해
+
+**📂 학습 내용 :**
+- ✅ [URP Shader Training #1](./Assets/Project/URP%20Shader%20Basic/URP%20Shader%20Training%20%231/README.md) - 기본 구조 및 Properties
+- 🚧 URP Shader Training #2 - 예정
+- 🚧 URP Shader Training #3 - 예정
+- 🚧 URP Shader Training #4 - 예정
+
+---
+
+### 4. 🚧 다음 프로젝트 준비 중...
 
 추후, 새로운 미니 프로젝트 진행 후, 추가 예정...
