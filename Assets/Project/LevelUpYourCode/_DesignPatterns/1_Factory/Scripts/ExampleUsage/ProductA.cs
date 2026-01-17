@@ -4,26 +4,31 @@ using UnityEngine;
 
 namespace DesignPatterns.Factory
 {
+    /// <summary>
+    /// 구체적인 제품 A (Concrete Product A)
+    /// IProduct 인터페이스를 구현하여 팩토리에서 생성 가능
+    /// </summary>
     public class ProductA : MonoBehaviour, IProduct
     {
-        [SerializeField] 
-        private string m_ProductName = "ProductA";
-        
-        public string ProductName { get => m_ProductName; set => m_ProductName = value; }
+        [SerializeField] private string productName = "ProductA";
 
-        private ParticleSystem m_ParticleSystem;
+        public string ProductName { get => productName; set => productName = value; }
+
+        // Private 변수
+        private ParticleSystem particleSystem;
 
         public void Initialize()
         {
-            // Add any unique set up logic here
-            gameObject.name = m_ProductName;
-            m_ParticleSystem = GetComponentInChildren<ParticleSystem>();
+            gameObject.name  = productName;
+            
+            // 고유한 초기화 로직을 여기에 추가
+            particleSystem   = GetComponentInChildren<ParticleSystem>();
 
-            if (m_ParticleSystem == null)
+            if (particleSystem == null)
                 return;
 
-            m_ParticleSystem.Stop();
-            m_ParticleSystem.Play();
+            particleSystem.Stop();
+            particleSystem.Play();
         }
     }
 }

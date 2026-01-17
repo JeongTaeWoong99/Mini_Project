@@ -4,19 +4,22 @@ using UnityEngine;
 
 namespace DesignPatterns.Factory
 {
+    /// <summary>
+    /// 구체적인 팩토리 A (Concrete Factory A)
+    /// ProductA를 생성하는 역할을 담당
+    /// </summary>
     public class ConcreteFactoryA : Factory
     {
-        // Used to create a Prefab
-        [SerializeField] 
-        private ProductA m_ProductPrefab;
+        // 프리팹 생성에 사용
+        [SerializeField] private ProductA productPrefab;
 
         public override IProduct GetProduct(Vector3 position)
         {
-            // Create a Prefab instance and get the product component
-            GameObject instance = Instantiate(m_ProductPrefab.gameObject, position, Quaternion.identity);
-            ProductA newProduct = instance.GetComponent<ProductA>();
+            // 프리팹 인스턴스를 생성하고 제품 컴포넌트를 가져옴
+            GameObject instance   = Instantiate(productPrefab.gameObject, position, Quaternion.identity);
+            ProductA   newProduct = instance.GetComponent<ProductA>();
 
-            // Each product contains its own logic
+            // 각 제품은 고유한 로직을 포함
             newProduct.Initialize();
 
             return newProduct;
