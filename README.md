@@ -90,7 +90,7 @@ Assets/
 
 **📂 학습 내용 :**
 - ✅ [URP Shader Training #1](./Assets/Project/URP%20Shader%20Basic/URP%20Shader%20Training%20%231/README.md) - 기본 구조 및 Properties
-- 🚧 URP Shader Training #2 - 예정
+- ✅ [URP Shader Training #2](./Assets/Project/URP%20Shader%20Basic/URP%20Shader%20Training%20%232/README.md) - Alpha Cutout 및 렌더 스테이트
 - 🚧 URP Shader Training #3 - 예정
 - 🚧 URP Shader Training #4 - 예정
 
