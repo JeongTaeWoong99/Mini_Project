@@ -53,6 +53,7 @@
 | 패턴 | 카테고리 | 핵심 개념 | 상세 보기 |
 |------|----------|-----------|-----------|
 | **Factory** | 생성 패턴 | 객체 생성 캡슐화, 느슨한 결합 | [📖 상세 보기](./_DesignPatterns/1_Factory/README.md) |
+| **Object Pool** | 생성 패턴 | 객체 재사용, GC 최적화 | [📖 상세 보기](./_DesignPatterns/2_ObjectPool/README.md) |
 | **Singleton** | 생성 패턴 | 단일 인스턴스 보장, 전역 접근 | [📖 상세 보기](./_DesignPatterns/3_Singleton/README.md) |
 | **Command** | 행동 패턴 | 명령 캡슐화, Undo/Redo | [📖 상세 보기](./_DesignPatterns/4_Command/README.md) |
 | **Observer** | 행동 패턴 | 이벤트 구독/발행, 느슨한 결합 | [📖 상세 보기](./_DesignPatterns/6_Observer/README.md) |
@@ -61,7 +62,6 @@
 
 | 패턴 | 카테고리 | 핵심 개념 | 학습 상태 |
 |------|----------|-----------|-----------|
-| **Object Pool** | 생성 패턴 | 객체 재사용 | 🚧 예정 |
 | **State** | 행동 패턴 | 상태 기반 행동 변경 | 🚧 예정 |
 | **Strategy** | 행동 패턴 | 알고리즘 캡슐화 | 🚧 예정 |
 | **MVP** | 아키텍처 패턴 | Model-View-Presenter | 🚧 예정 |
@@ -84,7 +84,7 @@ LevelUpYourCode/
 │
 ├── _DesignPatterns/                 # 디자인 패턴 예제
 │   ├── 1_Factory/                   # ✅ 팩토리 패턴 (완료)
-│   ├── 2_ObjectPool/                # 오브젝트 풀 패턴
+│   ├── 2_ObjectPool/                # ✅ 오브젝트 풀 패턴 (완료)
 │   ├── 3_Singleton/                 # ✅ 싱글톤 패턴 (완료)
 │   ├── 4_Command/                   # ✅ 커맨드 패턴 (완료)
 │   ├── 5_State/                     # 스테이트 패턴
@@ -117,8 +117,9 @@ LevelUpYourCode/
 - ✅ Singleton Pattern - 완료 (2025.12.08)
 - ✅ Observer Pattern - 완료 (2025.12.18)
 - ✅ Factory Pattern - 완료 (2026.01.17)
+- ✅ Object Pool Pattern - 완료 (2026.01.22)
 - 🚧 다른 패턴들 학습 진행 중...
 
 ---
 
-**마지막 업데이트 :** 2026.01.17 (✅ Factory Pattern 완료!)
+**마지막 업데이트 :** 2026.01.22 (✅ Object Pool Pattern 완료!)
