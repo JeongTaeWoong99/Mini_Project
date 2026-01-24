@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/TDD/TDD.unity
     guid: 97bb05353320f944b8b3ebe114adf401
   - enabled: 1
