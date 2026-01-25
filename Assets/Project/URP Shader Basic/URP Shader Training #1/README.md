@@ -9,6 +9,8 @@
 
 ## 학습 범위
 
+![캡쳐.png](%EC%BA%A1%EC%B3%90.png)
+
 **YouTube :** URP Shader Training #1-1 ~ #1-5
 
 **PDF :** 1 ~ 16 페이지
