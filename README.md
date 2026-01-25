@@ -21,11 +21,11 @@
 Assets/
 └── Project/
     ├── 1_Demos/                       # 🎮 기술 데모 & 미니 프로젝트
-    │   └── 2D_3D_Collision(Complete)/ # ✅ 완료
+    │   └── 2D_3D_Collision            # ✅ 완료
     │
     ├── 2_Tutorials/                   # 📚 학습 & 강의
     │   ├── LevelUpYourCode/           # 🚧 진행 중
-    │   └── URP Shader Basic/          # 🚧 진행 중
+    │   └── URP Shader Basic/          # ✅ 완료
     │
     └── 3_Other/                       # 🧪 실험 & 기타
         └── ...
@@ -91,7 +91,7 @@ Assets/
 
 ### 2-2. [URP Shader Basic - 셰이더 코딩 입문](./Assets/Project/2_Tutorials/URP%20Shader%20Basic/README.md)
 
-**기간 :** 2026.01.15 ~ 진행 중
+**기간 :** 2026.01.15 ~ 2026.01.25
 
 **주제 :** URP 셰이더를 직접 코딩하며 셰이더의 기초 지식 습득
 
@@ -102,12 +102,13 @@ Assets/
 - **ShaderLab** : Unity 셰이더 구조 (Shader, Properties, SubShader, Pass)
 - **HLSL** : 버텍스/프래그먼트 셰이더 작성
 - **URP** : Universal Render Pipeline 이해
+- **Lighting** : Lambert, Toon, Rim Light 구현
 
 **📂 학습 내용 :**
 - ✅ [URP Shader Training #1](./Assets/Project/2_Tutorials/URP%20Shader%20Basic/URP%20Shader%20Training%20%231/README.md) - 기본 구조 및 Properties
 - ✅ [URP Shader Training #2](./Assets/Project/2_Tutorials/URP%20Shader%20Basic/URP%20Shader%20Training%20%232/README.md) - Alpha Cutout 및 렌더 스테이트
 - ✅ [URP Shader Training #3](./Assets/Project/2_Tutorials/URP%20Shader%20Basic/URP%20Shader%20Training%20%233/README.md) - UV 활용 및 버텍스 애니메이션
-- 🚧 URP Shader Training #4 - 예정
+- ✅ [URP Shader Training #4](./Assets/Project/2_Tutorials/URP%20Shader%20Basic/URP%20Shader%20Training%20%234/README.md) - 라이팅 기초 및 Toon/Rim Light
 
 ---
 

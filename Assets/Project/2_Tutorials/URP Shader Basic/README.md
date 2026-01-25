@@ -10,7 +10,7 @@
 
 ## 프로젝트 개요
 
-**기간 :** 2026.01.15 ~ 진행 중
+**기간 :** 2026.01.15 ~ 2026.01.25 (완료)
 
 **목표 :** URP 셰이더를 직접 코딩으로 작성해보며 셰이더의 기초 지식을 습득합니다. 이를 통해 나중에 셰이더 그래프를 사용할 때 더 깊이 있는 이해를 바탕으로 활용할 수 있도록 하고자 함.
 
@@ -32,7 +32,7 @@
 | **#1** | 기본 구조 및 Properties | 1~16 / 53 | [✅ 완료](./URP%20Shader%20Training%20%231/README.md) |
 | **#2** | Alpha Cutout 및 렌더 스테이트 | 17~27 / 53 | [✅ 완료](./URP%20Shader%20Training%20%232/README.md) |
 | **#3** | UV 활용 및 버텍스 애니메이션 | 28~40 / 53 | [✅ 완료](./URP%20Shader%20Training%20%233/README.md) |
-| **#4** | (예정) | 41~53 / 53 | 🚧 예정 |
+| **#4** | 라이팅 기초 및 Toon/Rim Light | 41~53 / 53 | [✅ 완료](./URP%20Shader%20Training%20%234/README.md) |
 
 ---
 
@@ -46,9 +46,9 @@ URP Shader Basic/
 ├── URP Shader Training #1/      # Part 1 : 기본 구조 및 Properties
 ├── URP Shader Training #2/      # Part 2 : Alpha Cutout 및 렌더 스테이트
 ├── URP Shader Training #3/      # Part 3 : UV 활용 및 버텍스 애니메이션
-└── URP Shader Training #4/      # Part 4 : (예정)
+└── URP Shader Training #4/      # Part 4 : 라이팅 기초 및 Toon/Rim Light
 ```
 
 ---
 
-**마지막 업데이트 :** 2026.01.24 (Part 3 완료)
+**마지막 업데이트 :** 2026.01.25 (Part 4 완료 - 전체 학습 완료!)
