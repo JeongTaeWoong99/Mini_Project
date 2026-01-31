@@ -84,6 +84,7 @@ Assets/
 - ✅ [Object Pool Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/2_ObjectPool/README.md) - 객체 재사용 및 GC 최적화
 - ✅ [Singleton Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/3_Singleton/README.md) - 단일 인스턴스 보장 및 전역 접근
 - ✅ [Command Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/4_Command/README.md) - 명령 캡슐화 및 Undo/Redo 구현
+- ✅ [State Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/5_State/README.md) - 상태 기반 행동 변경 및 상태별 클래스 분리
 - ✅ [Observer Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/6_Observer/README.md) - 이벤트 구독/발행 및 느슨한 결합
 - 🚧 다른 패턴들 학습 진행 중...
 

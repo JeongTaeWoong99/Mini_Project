@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DesignPatterns.StatePattern
@@ -13,8 +11,8 @@ namespace DesignPatterns.StatePattern
 
     public class UnrefactoredPlayerController : MonoBehaviour
     {
-        // this works but does not scale; you would need to add a case
-        // each time you created a new internal state. Use the state pattern instead
+        // 이 방식은 동작하지만 확장성이 없음; 새로운 내부 상태를 생성할 때마다
+        // case를 추가해야 함. 대신 스테이트 패턴을 사용할 것
         private PlayerControllerState state;
 
         private void Update()
@@ -37,22 +35,22 @@ namespace DesignPatterns.StatePattern
 
         private void GetInput()
         {
-            // process walk and jump controls
+            // 걷기 및 점프 입력 처리
         }
 
         private void Walk()
         {
-            // walk logic
+            // 걷기 로직
         }
 
         private void Idle()
         {
-            // idle logic
+            // 대기 로직
         }
 
         private void Jump()
         {
-            // jump logic
+            // 점프 로직
         }
     }
 }

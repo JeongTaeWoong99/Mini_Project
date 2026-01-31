@@ -1,55 +1,52 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace DesignPatterns.StatePattern
 {
-    // handles
+    // 상태 머신 처리
     [Serializable]
     public class SimplePlayerStateMachine
     {
         public IState CurrentState { get; private set; }
 
-        // reference to the state objects
+        // 상태 객체에 대한 참조
         public WalkState walkState;
         public JumpState jumpState;
         public IdleState idleState;
 
-        // event to notify other objects of the state change
+        // 상태 변경을 다른 객체에 알리기 위한 이벤트
         public event Action<IState> stateChanged;
 
-        // pass in necessary parameters into constructor 
+        // 생성자에 필요한 매개변수를 전달
         public SimplePlayerStateMachine(PlayerController player)
         {
-            // create an instance for each state and pass in PlayerController
+            // 각 상태의 인스턴스를 생성하고 PlayerController를 전달
             this.walkState = new WalkState(player);
             this.jumpState = new JumpState(player);
             this.idleState = new IdleState(player);
         }
 
-        // set the starting state
+        // 시작 상태를 설정
         public void Initialize(IState state)
         {
             CurrentState = state;
             state.Enter();
 
-            // notify other objects that state has changed
+            // 다른 객체에 상태가 변경되었음을 알림(PlayerStateView구독 중)
             stateChanged?.Invoke(state);
         }
 
-        // exit this state and enter another
+        // 현재 상태를 종료하고 다른 상태로 진입
         public void TransitionTo(IState nextState)
         {
             CurrentState.Exit();
             CurrentState = nextState;
             nextState.Enter();
 
-            // notify other objects that state has changed
+            // 다른 객체에 상태가 변경되었음을 알림(PlayerStateView구독 중)
             stateChanged?.Invoke(nextState);
         }
 
-        // allow the StateMachine to update this state
+        // StateMachine이 현재 상태를 업데이트할 수 있도록 허용
         public void Execute()
         {
             if (CurrentState != null)

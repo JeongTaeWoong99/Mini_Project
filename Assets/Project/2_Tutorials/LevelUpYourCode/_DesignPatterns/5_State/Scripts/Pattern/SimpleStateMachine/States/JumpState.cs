@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DesignPatterns.StatePattern
@@ -8,11 +6,11 @@ namespace DesignPatterns.StatePattern
     {
         private PlayerController player;
 
-        // color to change player (alternately: pass in color value with constructor)
+        // 플레이어 색상 변경 (대안 : 생성자에 색상 값을 전달)
         private Color meshColor = Color.red;
-        public Color MeshColor { get => meshColor; set => meshColor = value; }
+        public  Color MeshColor { get => meshColor; set => meshColor = value; }
 
-        // pass in any parameters you need in the constructors
+        // 생성자에 필요한 매개변수를 전달
         public JumpState(PlayerController player)
         {
             this.player = player;
@@ -20,15 +18,14 @@ namespace DesignPatterns.StatePattern
 
         public void Enter()
         {
-            // code that runs when we first enter the state
-            //Debug.Log("Entering Jump State");
+            // 상태에 처음 진입할 때 실행되는 코드
+            //Debug.Log("점프 상태 진입");
         }
 
-        // per-frame logic, include condition to transition to a new state
+        // 매 프레임 실행되는 로직, 새로운 상태로 전환하는 조건 포함
         public void Execute()
         {
-
-            //Debug.Log("Updating Jump State");
+            //Debug.Log("점프 상태 업데이트");
 
             if (player.IsGrounded)
             {
@@ -45,9 +42,8 @@ namespace DesignPatterns.StatePattern
 
         public void Exit()
         {
-            // code that runs when we exit the state
-            //Debug.Log("Exiting Jump State");
+            // 상태에서 빠져나갈 때 실행되는 코드
+            //Debug.Log("점프 상태 종료");
         }
-
     }
 }

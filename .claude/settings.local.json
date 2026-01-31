@@ -17,7 +17,8 @@
       "WebFetch(domain:discussions.unity.com)",
       "Bash(git diff:*)",
       "Bash(git checkout:*)",
-      "Bash(copy:*)"
+      "Bash(copy:*)",
+      "Bash(git restore:*)"
     ],
     "deny": [],
     "ask": []

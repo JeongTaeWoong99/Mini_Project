@@ -1,24 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace DesignPatterns.StatePattern
 {
-    public interface IState: IColorable
+    public interface IState : IColorable
     {
         public void Enter()
         {
-            // code that runs when we first enter the state
+            // 상태에 처음 진입할 때 실행되는 코드
         }
 
         public void Execute()
         {
-            // per-frame logic, include condition to transition to a new state
+            // 매 프레임 실행되는 로직, 새로운 상태로 전환하는 조건 포함
         }
 
         public void Exit()
         {
-            // code that runs when we exit the state
+            // 상태에서 빠져나갈 때 실행되는 코드
         }
     }
 }
