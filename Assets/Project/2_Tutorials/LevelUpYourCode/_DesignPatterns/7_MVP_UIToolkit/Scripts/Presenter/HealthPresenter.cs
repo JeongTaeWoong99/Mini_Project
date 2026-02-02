@@ -28,26 +28,40 @@ namespace DesignPatterns.MVP_UIToolkit
 
         private void OnEnable()
         {
-            // 유틸리티 헬퍼 클래스로 필수 필드 검증
+            // 프로젝트 제공 null 체크 메서드
             NullRefChecker.Validate(this);
 
-            // 루트 요소 캐싱
+            // ──── 2단계 : UI 루트 요소 가져오기 ────
+            // UIDocument는 UXML 파일을 로드하여 화면에 표시하는 컴포넌트.
+            // rootVisualElement는 UXML의 최상위 요소로, 모든 UI 요소의 부모.
+            // 이것을 기준으로 하위 UI 요소들을 Q<T>()로 검색할 수 있음.
             m_Root = m_Document.rootVisualElement;
 
-            // UI 요소 검색 및 할당
+            // ──── 3단계 : Q<T>()로 UXML 안의 UI 요소 검색 ────
+            // Q<T>("name")은 UI Toolkit의 쿼리 메서드. HTML의 querySelector와 동일한 개념.
+            // UXML에서 name="health-bar" 등으로 지정한 요소를 타입과 이름으로 찾아 C# 변수에 할당.
+            // 이후 코드에서 이 변수들을 통해 UI 값(텍스트, 색상 등)을 직접 제어할 수 있음.
             m_HealthBar   = m_Root.Q<ProgressBar>("health-bar");
             m_StatusLabel = m_Root.Q<Label>("health-bar__status-label");
             m_ValueLabel  = m_Root.Q<Label>("health-bar__value-label");
 
-            // UI 상호작용 및 버튼 설정
+            // ──── 4단계 : 버튼 이벤트 등록 ────
+            // UXML에서 name="reset-button"인 Button을 찾아 clicked 이벤트에 RestoreHealth를 연결.
+            // 사용자가 리셋 버튼을 클릭하면 → RestoreHealth() → Model.Restore() 호출.
             RegisterElements();
 
+            // ──── 5단계 : Model 연결 ────
+            // 체력바 타이틀에 Model의 LabelName(예 : "Player HP")을 표시하고,
+            // Model의 HealthChanged 이벤트를 구독하여 데이터 변경 시 OnHealthChanged → UpdateUI 자동 호출.
             if (m_HealthModelAsset != null)
             {
                 m_HealthBar.title = m_HealthModelAsset.LabelName;
                 m_HealthModelAsset.HealthChanged += OnHealthChanged;
             }
 
+            // ──── 6단계 : 최초 UI 동기화 ────
+            // 위 설정이 모두 끝난 후, 현재 Model의 데이터를 View에 즉시 반영.
+            // 체력바 값, 색상, 상태 라벨, 수치 라벨을 한 번에 업데이트.
             UpdateUI();
         }
 
@@ -102,7 +116,7 @@ namespace DesignPatterns.MVP_UIToolkit
             {
                 >= 0 and < 1.0f / 3.0f           => "Danger",  // 위험
                 >= 1.0f / 3.0f and < 2.0f / 3.0f => "Neutral", // 보통
-                _                                 => "Good"     // 양호
+                _                                => "Good"     // 양호
             };
 
             // 상태 라벨 색상을 보간된 색상으로 변경

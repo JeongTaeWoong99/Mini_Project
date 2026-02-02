@@ -87,6 +87,7 @@ Assets/
 - ✅ [State Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/5_State/README.md) - 상태 기반 행동 변경 및 상태별 클래스 분리
 - ✅ [Observer Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/6_Observer/README.md) - 이벤트 구독/발행 및 느슨한 결합
 - ✅ [MVP Pattern (Legacy)](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/7_MVP(Legacy)/README.md) - Model-View-Presenter, uGUI 기반
+- ✅ [MVP Pattern (UIToolkit)](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/7_MVP_UIToolkit/README.md) - Model-View-Presenter, UI Toolkit + ScriptableObject 기반
 - 🚧 다른 패턴들 학습 진행 중...
 
 ---
