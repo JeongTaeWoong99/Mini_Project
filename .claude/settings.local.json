@@ -18,7 +18,12 @@
       "Bash(git diff:*)",
       "Bash(git checkout:*)",
       "Bash(copy:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "WebFetch(domain:www.youtube.com)",
+      "WebSearch",
+      "Bash(Rename-Item \"C:\\\\Users\\\\ASUS\\\\Desktop\\\\Unity\\\\Project\\\\Mini_Project\\\\Assets\\\\Project\\\\2_Tutorials\\\\LevelUpYourCode\\\\_DesignPatterns\\\\7_MVVM\" \"7_MVVM_UIToolkit\")",
+      "WebFetch(domain:tae-woong.tistory.com)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

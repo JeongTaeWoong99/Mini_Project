@@ -4,41 +4,41 @@ using System;
 namespace DesignPatterns.MVP_UIToolkit
 {
     /// <summary>
-    /// Data container for a health object that follows MVP design pattern using UI Toolkit.
+    /// MVP 디자인 패턴(UI Toolkit)을 따르는 체력 데이터 컨테이너.
     /// </summary>
     [CreateAssetMenu(fileName = "HealthData", menuName = "DesignPatterns/MVP_UIToolkit/HealthModel")]
     public class HealthModel : ScriptableObject
     {
-        // Event to communicate with ViewModel
+        // ViewModel과 통신하기 위한 이벤트
         public event Action HealthChanged;
 
-        // Our min and max are constants as we use them for configuration only
+        // 최소/최대값은 설정용 상수
         private const int k_MinHealth = 0;
         private const int k_MaxHealth = 100;
 
-        [Tooltip("ID for the health object")] [SerializeField]
-        private string m_LabelName;
+        [Tooltip("체력 오브젝트의 ID")]
+        [SerializeField] private string m_LabelName;
 
-        [Space] 
-        [Tooltip("Current health value")]
+        [Space]
+        [Tooltip("현재 체력 값")]
         public int CurrentHealth;
-        
-        public int MinHealth => k_MinHealth;
-        public int MaxHealth => k_MaxHealth;
+
+        public int    MinHealth => k_MinHealth;
+        public int    MaxHealth => k_MaxHealth;
         public string LabelName => m_LabelName;
 
-        // Return a runtime instance (so each object can work on its own data)
+        // 런타임 인스턴스를 반환 (각 오브젝트가 독립적인 데이터로 동작)
         public static HealthModel CreateInstance(HealthModel original)
         {
             var newInstance = CreateInstance<HealthModel>();
 
-            // Copy necessary fields
+            // 필요한 필드 복사
             newInstance.CurrentHealth = original.CurrentHealth;
-            newInstance.m_LabelName = original.m_LabelName;
+            newInstance.m_LabelName   = original.m_LabelName;
             return newInstance;
         }
 
-        // Clamps to a valid range when entering in the Inspector
+        // Inspector에서 입력 시 유효 범위로 클램핑
         private void OnValidate()
         {
             CurrentHealth = Mathf.Clamp(CurrentHealth, k_MinHealth, k_MaxHealth);
@@ -46,30 +46,25 @@ namespace DesignPatterns.MVP_UIToolkit
 
         private void OnEnable()
         {
-            // We reset the health to the maximum value when the object is enabled restarting the scene
+            // 씬 재시작 시 오브젝트가 활성화되면 체력을 최대값으로 초기화
             Restore();
         }
 
+        // 체력 증가
         public void Increment(int amount)
         {
-            CurrentHealth += amount;
-            
-            // Clamp to valid range
-            CurrentHealth = Mathf.Clamp(CurrentHealth, k_MinHealth, k_MaxHealth);
-            
+            CurrentHealth = Mathf.Clamp(CurrentHealth + amount, k_MinHealth, k_MaxHealth);
             HealthChanged?.Invoke();
         }
 
+        // 체력 감소
         public void Decrement(int amount)
         {
-            CurrentHealth -= amount;
-            
-            // Clamp to valid range
-            CurrentHealth = Mathf.Clamp(CurrentHealth, k_MinHealth, k_MaxHealth);
+            CurrentHealth = Mathf.Clamp(CurrentHealth - amount, k_MinHealth, k_MaxHealth);
             HealthChanged?.Invoke();
         }
 
-        // Restores the health to the maximum value.
+        // 체력을 최대값으로 복원
         public void Restore()
         {
             CurrentHealth = k_MaxHealth;

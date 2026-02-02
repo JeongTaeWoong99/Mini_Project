@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Description: Loads the State scene from Design Patterns.
   m_DebugLog: 1
-  m_ScenePath: Assets/Project/LevelUpYourCode/_DesignPatterns/5_State/State.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/5_State/State.unity

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Description: Loads the MVP scene from Design Patterns.
   m_DebugLog: 1
-  m_ScenePath: Assets/Project/LevelUpYourCode/_DesignPatterns/7_MVP_UIToolkit/MVP_UIToolkit.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/7_MVP_UIToolkit/MVP_UIToolkit.unity

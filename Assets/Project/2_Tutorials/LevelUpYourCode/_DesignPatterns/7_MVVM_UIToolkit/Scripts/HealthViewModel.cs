@@ -7,88 +7,87 @@ using UnityEngine.UIElements;
 namespace DesignPatterns.MVVM
 {
     /// <summary>
-    /// This acts a mediator between the Model (data) and the View (UI). This listens
-    /// for changes to the HealthModel and then notifies any listeners. This component handles
-    /// user interactions from the UI to affect the HealthModel.
+    /// Model(데이터)과 View(UI) 사이의 중재자 역할.
+    /// HealthModel의 변경사항을 감지하고 리스너에게 알린다.
+    /// UI에서 발생하는 사용자 상호작용을 처리하여 HealthModel에 반영한다.
     /// </summary>
     public class HealthViewModel : MonoBehaviour
     {
-        // Inspector fields
-        [Tooltip("Reference to the View (UI)")]
-        [SerializeField] private UIDocument m_Document;
+        [Tooltip("View(UI) 참조")]
+        [SerializeField] private UIDocument  m_Document;
 
-        [Tooltip("Reference to the Model data (ScriptableObject asset)")]
+        [Tooltip("Model 데이터(ScriptableObject 에셋) 참조")]
         [SerializeField] private HealthModel m_HealthModelAsset;
 
-        // Root element of the UI
+        // UI 루트 요소
         private VisualElement m_Root;
-        
+
         private void OnEnable()
         {
-            // Validate required fields
+            // 필수 필드 검증
             NullRefChecker.Validate(this);
-            
-            // Cache the root element
-            m_Root= m_Document.rootVisualElement;
-            
-            // Set up UI interactions, buttons
+
+            // 루트 요소 캐싱
+            m_Root = m_Document.rootVisualElement;
+
+            // UI 상호작용 및 버튼 설정
             RegisterElements();
-            
-            // Bind HealthModel to the UI
+
+            // HealthModel을 UI에 바인딩
             SetDataBindings();
         }
 
-        
-        // Methods to interact with View
+        // View와 상호작용하기 위한 메서드
         private void RegisterElements()
         {
-            // Find the button in the UXML
-            var resetButton = m_Root .Q<Button>("reset-button");
+            // UXML에서 버튼 검색
+            var resetButton = m_Root.Q<Button>("reset-button");
 
-            // Subscribe the ResetHealth method to the Clickable.clicked event of the reset button.
+            // 리셋 버튼의 clicked 이벤트에 RestoreHealth 메서드 구독
             if (resetButton != null)
             {
                 resetButton.clicked += RestoreHealth;
             }
         }
 
-        // Sets up data bindings between the HealthModel and UI elements, for automatic updates
+        // HealthModel과 UI 요소 사이의 데이터 바인딩을 설정하여 자동 업데이트 활성화
         private void SetDataBindings()
         {
-            // Locate the UI element 
-            var healthBar = m_Root.Q<ProgressBar>("health-bar");
+            // UI 요소 탐색
+            var healthBar         = m_Root.Q<ProgressBar>("health-bar");
             var healthBarProgress = healthBar?.Q<VisualElement>(className: "unity-progress-bar__progress");
 
             if (healthBarProgress != null)
             {
-                // Define an object as a data source on the element (the ScriptableObject in this case)
+                // 요소에 데이터 소스로 오브젝트 정의 (이 경우 ScriptableObject)
                 healthBarProgress.dataSource = m_HealthModelAsset;
 
-                // Create a new data binding for the health bar's background color
+                // 체력바 배경 색상을 위한 새로운 데이터 바인딩 생성
                 var binding = new DataBinding
                 {
                     dataSourcePath = new PropertyPath(nameof(HealthModel.CurrentHealth)),
 
-                    // Bind one-way from the data source to the UI
+                    // 데이터 소스에서 UI로 단방향 바인딩
                     bindingMode = BindingMode.ToTarget,
                 };
 
-                // Add a formula to map the int value to a color
+                // int 값을 색상으로 매핑하는 공식 추가
                 binding.sourceToUiConverters.AddConverter((ref int value) =>
                     new StyleColor(Color.Lerp(Color.red, Color.green,
                         (float)value / (float)m_HealthModelAsset.MaxHealth)));
 
-                // Register the binding to the health bar progress element
+                // 체력바 프로그레스 요소에 바인딩 등록
                 healthBarProgress.SetBinding("style.backgroundColor", binding);
             }
         }
 
-        // Methods to interact with the Model
+        // Model과 상호작용 : 체력 복원
         public void RestoreHealth()
         {
             m_HealthModelAsset.Restore();
         }
 
+        // Model과 상호작용 : 데미지 적용
         public void ApplyDamage(int damage)
         {
             m_HealthModelAsset.Decrement(damage);

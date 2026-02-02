@@ -2,20 +2,18 @@ using DesignPatterns.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 namespace DesignPatterns.MVP
 {
-    // The Presenter. This listens for View changes in the user interface and the manipulates the Model (Health)
-    // in response. The Presenter updates the View when the Model changes.
-
+    // Presenter 클래스. View(UI)의 변경사항을 감지하고 Model(Health)을 조작한다.
+    // Model이 변경되면 View를 업데이트한다.
     public class HealthPresenter : MonoBehaviour
     {
         [Header("Model")]
-        [Tooltip("An object containing the health data")]
+        [Tooltip("체력 데이터를 포함하는 오브젝트")]
         [SerializeField] Health m_Health;
 
         [Header("View")]
-        [Tooltip("UI Slider representing health bar")]
+        [Tooltip("체력바를 나타내는 UI 슬라이더")]
         [SerializeField] Slider m_HealthSlider;
         [Optional]
         [SerializeField] Text m_HealthLabel;
@@ -39,37 +37,40 @@ namespace DesignPatterns.MVP
             m_Health.HealthChanged -= Health_HealthChanged;
         }
 
+        // 슬라이더 최대값을 Model의 최대 체력으로 초기화
         private void InitializeSlider()
         {
             m_HealthSlider.maxValue = m_Health.MaxHealth;
         }
 
-        // send damage to the model
+        // Model에 데미지 전달
         public void Damage(int amount)
         {
             m_Health.Decrement(amount);
         }
 
+        // Model에 회복 전달
         public void Heal(int amount)
         {
             m_Health.Increment(amount);
         }
 
-        // send reset to the model
+        // Model 체력을 최대값으로 리셋
         public void Reset()
         {
             m_Health.Restore();
         }
 
+        // View 업데이트 : Model 데이터를 UI에 반영
         public void UpdateView()
         {
             if (m_Health == null)
                 return;
 
-            // format the data for view
+            // 데이터를 View 형식에 맞게 변환
             if (m_Health.MaxHealth != 0)
             {
-                m_HealthSlider.value = ((float)m_Health.CurrentHealth / (float)m_Health.MaxHealth) *100f;
+                m_HealthSlider.value = ((float)m_Health.CurrentHealth / (float)m_Health.MaxHealth) * 100f;
             }
 
             if (m_HealthLabel != null)
@@ -78,7 +79,7 @@ namespace DesignPatterns.MVP
             }
         }
 
-        // Event handling method; listen for model changes and update the view
+        // 이벤트 핸들러 : Model 변경을 감지하여 View 업데이트
         public void Health_HealthChanged()
         {
             UpdateView();

@@ -1,24 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace DesignPatterns.MVP
 {
-    // The Model. This contains the data for our MVP pattern. This could also be a 
-    // System.Object or ScriptableObject.
+    // Model 클래스. MVP 패턴의 데이터를 보유한다.
+    // System.Object 또는 ScriptableObject로도 구현 가능하다.
     public class Health : MonoBehaviour
     {
-        // This event notifies the Presenter that the health has changed.
-        // This is useful if setting the value (e.g. saving to disk or
-        // storing in a database) takes some time.
+        // Presenter에게 체력 변경을 알리는 이벤트.
+        // 값을 저장하는 데 시간이 걸리는 경우(예 : 디스크 저장, DB 저장)에 유용하다.
         public event Action HealthChanged;
 
         private const int k_MinHealth = 0;
         private const int k_MaxHealth = 100;
+        
         private int m_CurrentHealth;
 
-        // Properties
+        // 프로퍼티
         public int CurrentHealth
         {
             get => m_CurrentHealth;
@@ -31,19 +29,19 @@ namespace DesignPatterns.MVP
         public int MinHealth => k_MinHealth;
         public int MaxHealth => k_MaxHealth;
 
-
-
+        // 체력 증가
         public void Increment(int amount)
         {
             CurrentHealth += amount;
         }
 
+        // 체력 감소
         public void Decrement(int amount)
         {
             CurrentHealth -= amount;
         }
 
-        // max the health value
+        // 체력을 최대값으로 복원
         public void Restore()
         {
             CurrentHealth = k_MaxHealth;
