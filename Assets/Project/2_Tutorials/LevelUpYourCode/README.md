@@ -60,13 +60,13 @@
 | **Observer** | 행동 패턴 | 이벤트 구독/발행, 느슨한 결합 | [📖 상세 보기](./_DesignPatterns/6_Observer/README.md) |
 | **MVP (Legacy)** | 아키텍처 패턴 | Model-View-Presenter, uGUI 기반 | [📖 상세 보기](./_DesignPatterns/7_MVP(Legacy)/README.md) |
 | **MVP (UIToolkit)** | 아키텍처 패턴 | Model-View-Presenter, UI Toolkit + ScriptableObject | [📖 상세 보기](./_DesignPatterns/7_MVP_UIToolkit/README.md) |
+| **MVVM (UIToolkit)** | 아키텍처 패턴 | Model-View-ViewModel, 데이터 바인딩 | [📖 상세 보기](./_DesignPatterns/7_MVVM_UIToolkit/README.md) |
 
 ### 🚧 학습 예정
 
 | 패턴 | 카테고리 | 핵심 개념 | 학습 상태 |
 |------|----------|-----------|-----------|
 | **Strategy** | 행동 패턴 | 알고리즘 캡슐화 | 🚧 예정 |
-| **MVVM (UIToolkit)** | 아키텍처 패턴 | Model-View-ViewModel, 데이터 바인딩 | 🚧 예정 |
 | **Flyweight** | 구조 패턴 | 메모리 최적화 | 🚧 예정 |
 | **Dirty Flag** | 최적화 패턴 | 변경 감지 최적화 | 🚧 예정 |
 
@@ -92,7 +92,7 @@ LevelUpYourCode/
 │   ├── 6_Observer/                  # ✅ 옵저버 패턴 (완료)
 │   ├── 7_MVP(Legacy)/               # ✅ MVP 패턴 - uGUI 기반 (완료)
 │   ├── 7_MVP_UIToolkit/             # ✅ MVP 패턴 - UI Toolkit + ScriptableObject 기반 (완료)
-│   ├── 7_MVVM_UIToolkit/            # MVVM (UI Toolkit)
+│   ├── 7_MVVM_UIToolkit/            # ✅ MVVM (UI Toolkit + 데이터 바인딩) (완료)
 │   ├── 8_Strategy/                  # 전략 패턴
 │   ├── 9_Flyweight/                 # 플라이웨이트 패턴
 │   └── 10_DirtyFlag/                # 더티 플래그 패턴
@@ -122,8 +122,9 @@ LevelUpYourCode/
 - ✅ State Pattern - 완료 (2026.01.31)
 - ✅ MVP Pattern (Legacy) - 완료 (2026.02.02)
 - ✅ MVP Pattern (UIToolkit) - 완료 (2026.02.03)
+- ✅ MVVM Pattern (UIToolkit) - 완료 (2026.02.03)
 - 🚧 다른 패턴들 학습 진행 중...
 
 ---
 
-**마지막 업데이트 :** 2026.02.03 (✅ MVP Pattern (UIToolkit) 완료!)
+**마지막 업데이트 :** 2026.02.03 (✅ MVVM Pattern (UIToolkit) 완료!)

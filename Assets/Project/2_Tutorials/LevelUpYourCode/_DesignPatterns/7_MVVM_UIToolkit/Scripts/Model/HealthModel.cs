@@ -63,7 +63,7 @@ namespace DesignPatterns.MVVM
                 {
                     >= 0 and < 1.0f / 3.0f           => "Danger",  // 위험
                     >= 1.0f / 3.0f and < 2.0f / 3.0f => "Neutral", // 보통
-                    _                                 => "Good"     // 양호
+                    _                                 => "Good"    // 양호
                 };
             });
 
