@@ -36,7 +36,7 @@ Assets/
 
 ## 1. Demos - 기술 데모 & 미니 프로젝트
 
-### 1-1. [2D/3D Collision](./Assets/Project/1_Demos/2D_3D_Collision(Complete)/README.MD)
+### 1-1. [2D/3D Collision](./Assets/Project/1_Demos/2D_3D_Collision/README.MD)
 
 **기간 :** 2025.10.10 ~ 2025.10.12
 
