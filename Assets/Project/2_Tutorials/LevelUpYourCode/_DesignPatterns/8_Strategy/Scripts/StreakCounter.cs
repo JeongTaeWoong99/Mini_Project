@@ -52,15 +52,6 @@ namespace DesignPatterns.Strategy
             UpdateStreakText();
         }
 
-        // 현재 연속 수집 수를 표시하도록 텍스트를 업데이트한다
-        private void UpdateStreakText()
-        {
-            if (m_StreakText != null)
-            {
-                m_StreakText.text = m_CurrentStreak.ToString();
-            }
-        }
-
         // 현재 연속 수집 수에서 사용 가능한 가장 높은 능력을 사용하도록 AbilityRunner를 업데이트한다
         private void UpdateCurrentAbility()
         {
@@ -76,6 +67,15 @@ namespace DesignPatterns.Strategy
             if (highestAbility != null)
             {
                 m_AbilityRunner.CurrentAbility = highestAbility;
+            }
+        }
+        
+        // 현재 연속 수집 수를 표시하도록 텍스트를 업데이트한다
+        private void UpdateStreakText()
+        {
+            if (m_StreakText != null)
+            {
+                m_StreakText.text = m_CurrentStreak.ToString();
             }
         }
 

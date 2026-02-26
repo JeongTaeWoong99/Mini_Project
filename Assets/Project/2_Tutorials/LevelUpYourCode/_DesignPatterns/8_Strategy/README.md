@@ -164,8 +164,8 @@ public abstract class Ability : ScriptableObject
 ```
 일반 클래스 방식               ScriptableObject 방식
 ─────────────────            ──────────────────────────
-코드로만 교체 가능    vs      인스펙터에서 드래그앤드롭으로 교체
-능력마다 인스턴스 생성  vs    에셋 파일로 공유 가능
+코드로만 교체 가능     vs     인스펙터에서 드래그앤드롭으로 교체
+능력마다 인스턴스 생성  vs     에셋 파일로 공유 가능
 런타임 후 사라짐       vs     에셋으로 프로젝트에 저장
 ```
 
@@ -300,8 +300,8 @@ public class StreakCounter : MonoBehaviour
 
 ```
 연속 수집 0개  → 능력 없음
-연속 수집 3개  → RadarAbility 활성화   (최소 3개)
-연속 수집 5개  → FirstAidAbility 활성화 (최소 5개)
+연속 수집 3개  → RadarAbility      활성화 (최소 3개)
+연속 수집 5개  → FirstAidAbility   활성화 (최소 5개)
 연속 수집 10개 → AirSupportAbility 활성화 (최소 10개)
 ```
 
