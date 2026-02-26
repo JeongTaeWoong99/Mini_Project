@@ -89,6 +89,7 @@ Assets/
 - ✅ [MVP Pattern (Legacy)](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/7_MVP(Legacy)/README.md) - Model-View-Presenter, uGUI 기반
 - ✅ [MVP Pattern (UIToolkit)](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/7_MVP_UIToolkit/README.md) - Model-View-Presenter, UI Toolkit + ScriptableObject 기반
 - ✅ [MVVM Pattern (UIToolkit)](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/7_MVVM_UIToolkit/README.md) - Model-View-ViewModel, 데이터 바인딩
+- ✅ [Strategy Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/8_Strategy/README.md) - 알고리즘 캡슐화 및 런타임 교체
 - 🚧 다른 패턴들 학습 진행 중...
 
 ---

@@ -1,27 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
 
 namespace DesignPatterns.Strategy
 {
-    using UnityEngine;
-
     public class Collectible : MonoBehaviour
     {
         private void OnTriggerEnter(Collider other)
         {
-            // Tag your player object with "Player"
-            if (other.CompareTag("Player")) 
+            // 플레이어 오브젝트에 "Player" 태그를 지정해야 한다
+            if (other.CompareTag("Player"))
             {
-                // Notify any listeners through the event channel
+                // 이벤트 채널을 통해 리스너에게 알린다
                 GameEvents.CollectibleCollected();
-                
-                // Destroy the object after it's collected
-                Destroy(gameObject); 
+
+                // 수집된 후 오브젝트를 파괴한다
+                Destroy(gameObject);
             }
         }
     }
-
 }
