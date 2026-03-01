@@ -6,22 +6,22 @@ namespace DesignPatterns.Flyweight
 {
     public class UnrefactoredShip : MonoBehaviour
     {
-        [Tooltip("Shared string data across all instances of the ships")]
+        [Tooltip("모든 함선 인스턴스에서 공유되는 문자열 데이터")]
         public string UnitName;
 
-        [Space] 
+        [Space]
         [TextArea(5, 10)] public string Description;
         public float Speed;
-        public int AttackPower;
-        public int Defense;
-        
-        [Space] 
+        public int   AttackPower;
+        public int   Defense;
+
+        [Space]
         public Texture2D IconA;
         public Texture2D IconB;
         public Texture2D IconC;
 
-        [Space] 
-        [Tooltip("This extrinsic health data is not shared with other instances of the ships")]
+        [Space]
+        [Tooltip("다른 함선 인스턴스와 공유되지 않는 외재적(extrinsic) 체력 데이터")]
         public float Health;
     }
 }

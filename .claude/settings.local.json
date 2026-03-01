@@ -24,7 +24,9 @@
       "Bash(Rename-Item \"C:\\\\Users\\\\ASUS\\\\Desktop\\\\Unity\\\\Project\\\\Mini_Project\\\\Assets\\\\Project\\\\2_Tutorials\\\\LevelUpYourCode\\\\_DesignPatterns\\\\7_MVVM\" \"7_MVVM_UIToolkit\")",
       "WebFetch(domain:tae-woong.tistory.com)",
       "Bash(ls:*)",
-      "WebFetch(domain:docs.unity3d.com)"
+      "WebFetch(domain:docs.unity3d.com)",
+      "Bash(python:*)",
+      "Bash(powershell:*)"
     ],
     "deny": [],
     "ask": []

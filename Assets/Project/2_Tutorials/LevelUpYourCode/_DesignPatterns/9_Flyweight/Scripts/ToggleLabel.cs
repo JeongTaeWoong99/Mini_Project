@@ -6,27 +6,27 @@ using TMPro;
 namespace DesignPatterns
 {
     /// <summary>
-    /// Monitors a GameObject for active state and updates a TMPro UGUI label.
+    /// GameObject의 활성화 상태를 감시하여 TMPro UGUI 라벨을 업데이트하는 컴포넌트
     /// </summary>
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class ToggleLabel : MonoBehaviour
     {
-        [Tooltip("Object to monitor for active state")]
+        [Tooltip("활성화 상태를 감시할 오브젝트")]
         [SerializeField] private GameObject m_EnabledObject;
-        [Header("Labels")]
-        [Tooltip("The prefix to show before the enabled/disabled state text.")]
+        [Header("라벨")]
+        [Tooltip("활성화/비활성화 상태 텍스트 앞에 표시할 접두사")]
         [SerializeField] private string m_LabelPrefix;
-        [Tooltip("Text to display when the monitored object is active.")]
+        [Tooltip("감시 오브젝트가 활성화 상태일 때 표시할 텍스트")]
         [SerializeField] private string m_EnabledString;
-        [Tooltip("Text to display when the monitored object is inactive.")]
+        [Tooltip("감시 오브젝트가 비활성화 상태일 때 표시할 텍스트")]
         [SerializeField] private string m_DisabledString;
-       
-        // Required TextMeshPro UGUI label
+
+        // 필수 TextMeshPro UGUI 라벨
         TextMeshProUGUI m_TextLabel;
 
         private void Awake()
         {
-            // Find the TextMeshProUGUI component on the same GameObject
+            // 동일한 GameObject에서 TextMeshProUGUI 컴포넌트 탐색
             m_TextLabel = GetComponent<TextMeshProUGUI>();
         }
 
@@ -35,10 +35,10 @@ namespace DesignPatterns
             UpdateLabel();
         }
 
-        // Updates the label based on the active state of the monitored object.
+        // 감시 오브젝트의 활성화 상태에 따라 라벨 업데이트
         public void UpdateLabel()
         {
-            // Exit if label or monitored object is missing
+            // 라벨 또는 감시 오브젝트가 없으면 종료
             if (m_TextLabel == null || m_EnabledObject == null)
                 return;
 
