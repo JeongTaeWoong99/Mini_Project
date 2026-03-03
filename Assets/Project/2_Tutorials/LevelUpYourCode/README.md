@@ -11,7 +11,7 @@
 
 ## 🎯 프로젝트 개요
 
-**기간 :** 2025.11.24 ~ ∞
+**기간 :** 2025.11.24 ~ 2026.03.03
 
 **목표 :** 유니티 코리아에서 제공하는 '디자인 패턴 및 SOLID 원칙으로 코딩 스킬 업그레이드' PDF와 데모 프로젝트를 통해 실무에서 활용 가능한 디자인 패턴과 SOLID 원칙을 체계적으로 학습하고 이해합니다.
 
@@ -63,12 +63,7 @@
 | **MVVM (UIToolkit)** | 아키텍처 패턴 | Model-View-ViewModel, 데이터 바인딩 | [📖 상세 보기](./_DesignPatterns/7_MVVM_UIToolkit/README.md) |
 | **Strategy** | 행동 패턴 | 알고리즘 캡슐화, 런타임 교체 | [📖 상세 보기](./_DesignPatterns/8_Strategy/README.md) |
 | **Flyweight** | 구조 패턴 | 공유 데이터 분리, 메모리 최적화 | [📖 상세 보기](./_DesignPatterns/9_Flyweight/README.md) |
-
-### 🚧 학습 예정
-
-| 패턴 | 카테고리 | 핵심 개념 | 학습 상태 |
-|------|----------|-----------|-----------|
-| **Dirty Flag** | 최적화 패턴 | 변경 감지 최적화 | 🚧 예정 |
+| **Dirty Flag** | 최적화 패턴 | 변경 감지 최적화, 비싼 연산 선별 실행 | [📖 상세 보기](./_DesignPatterns/10_DirtyFlag/README.md) |
 
 ---
 
@@ -95,7 +90,7 @@ LevelUpYourCode/
 │   ├── 7_MVVM_UIToolkit/            # ✅ MVVM (UI Toolkit + 데이터 바인딩) (완료)
 │   ├── 8_Strategy/                  # ✅ 전략 패턴 (완료)
 │   ├── 9_Flyweight/                 # ✅ 플라이웨이트 패턴 (완료)
-│   └── 10_DirtyFlag/                # 더티 플래그 패턴
+│   └── 10_DirtyFlag/                # ✅ 더티 플래그 패턴 (완료)
 │
 ├── Scenes/                          # 데모 씬들
 ├── Scripts/                         # 공통 스크립트
@@ -125,8 +120,8 @@ LevelUpYourCode/
 - ✅ MVVM Pattern (UIToolkit) - 완료 (2026.02.03)
 - ✅ Strategy Pattern - 완료 (2026.02.26)
 - ✅ Flyweight Pattern - 완료 (2026.03.01)
-- 🚧 다른 패턴들 학습 진행 중...
+- ✅ Dirty Flag Pattern - 완료 (2026.03.03)
 
 ---
 
-**마지막 업데이트 :** 2026.03.01 (✅ Flyweight Pattern 완료!)
+**마지막 업데이트 :** 2026.03.03 (✅ Dirty Flag Pattern 완료!)

@@ -59,7 +59,7 @@ Assets/
 
 ### 2-1. [LevelUpYourCode - Design Patterns & SOLID Principles](./Assets/Project/2_Tutorials/LevelUpYourCode/README.md)
 
-**기간 :** 2025.11.24 ~ ∞
+**기간 :** 2025.11.24 ~ 2026.03.03
 
 **주제 :** 유니티 코리아에서 제공하는 '디자인 패턴 및 SOLID 원칙으로 코딩 스킬 업그레이드 PDF'와 데모 프로젝트를 기반으로 솔리드 원칙과 디자인 패턴 학습 및 이해
 
@@ -91,7 +91,7 @@ Assets/
 - ✅ [MVVM Pattern (UIToolkit)](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/7_MVVM_UIToolkit/README.md) - Model-View-ViewModel, 데이터 바인딩
 - ✅ [Strategy Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/8_Strategy/README.md) - 알고리즘 캡슐화 및 런타임 교체
 - ✅ [Flyweight Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/9_Flyweight/README.md) - 공유 데이터 분리 및 메모리 최적화
-- 🚧 다른 패턴들 학습 진행 중...
+- ✅ [Dirty Flag Pattern](./Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/README.md) - 변경 감지 최적화 및 비싼 연산 선별 실행
 
 ---
 

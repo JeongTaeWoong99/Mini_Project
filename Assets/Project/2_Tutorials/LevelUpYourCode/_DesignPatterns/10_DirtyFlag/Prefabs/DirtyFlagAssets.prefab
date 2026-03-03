@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector3-1.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector3-1.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector0-3.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector0-3.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -734,7 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector1-3.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector1-3.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -842,7 +842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector3-0.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector3-0.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector0-1.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector0-1.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector0-2.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector0-2.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -1167,7 +1167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector0-0.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector0-0.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -1324,7 +1324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector1-2.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector1-2.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -1432,7 +1432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector2-0.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector2-0.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -1611,7 +1611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector3-2.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector3-2.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector2-2.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector2-2.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -2020,7 +2020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector1-1.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector1-1.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -2177,7 +2177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector2-3.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector2-3.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -2285,7 +2285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector3-3.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector3-3.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -2551,7 +2551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector2-1.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector2-1.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
@@ -2771,7 +2771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneLoader: {fileID: 8683095363776097381}
-  m_ScenePath: Assets/UnityTechnologies/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector1-0.unity
+  m_ScenePath: Assets/Project/2_Tutorials/LevelUpYourCode/_DesignPatterns/10_DirtyFlag/SubScenes/Sector1-0.unity
   m_CenterOffset: {x: 0, y: 0, z: 0}
   m_LoadRadius: 5
   m_ActiveMaterial: {fileID: 2100000, guid: 7ab977a21c92388468ee65ad1c0e5a78, type: 2}
