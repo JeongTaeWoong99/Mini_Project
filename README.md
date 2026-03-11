@@ -24,7 +24,7 @@ Assets/
     │   └── 2D_3D_Collision            # ✅ 완료
     │
     ├── 2_Tutorials/                   # 📚 학습 & 강의
-    │   ├── LevelUpYourCode/           # 🚧 진행 중
+    │   ├── LevelUpYourCode/           # ✅ 완료
     │   └── URP Shader Basic/          # ✅ 완료
     │
     └── 3_Other/                       # 🧪 실험 & 기타
