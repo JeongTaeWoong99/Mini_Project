@@ -35,7 +35,9 @@
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\ASUS\\\\Desktop\\\\Unity\\\\Project\\\\Mini_Project\\\\Assets\\\\Project\\\\1_Demos\\\\PostProcessing_Exception\" | ForEach-Object { \"[$\\($_.Name\\)]\" })",
       "PowerShell(Set-Content *)",
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\ASUS\\\\Desktop\\\\Unity\\\\Project\\\\Mini_Project\\\\Assets\\\\Project\\\\1_Demos\\\\PostProcessing_Exception\\\\Renderer Feature\" | Where-Object { $_.Extension -match \"\\\\.\\(png|jpg\\)\" } | ForEach-Object { $_.Name })",
-      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\ASUS\\\\Desktop\\\\Unity\\\\Project\\\\Mini_Project\\\\Assets\\\\Project\\\\1_Demos\\\\PostProcessing_Exception\\\\Camera Stacking\" | Where-Object { $_.Extension -match \"\\\\.\\(png|jpg\\)\" } | ForEach-Object { $_.Name })"
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\ASUS\\\\Desktop\\\\Unity\\\\Project\\\\Mini_Project\\\\Assets\\\\Project\\\\1_Demos\\\\PostProcessing_Exception\\\\Camera Stacking\" | Where-Object { $_.Extension -match \"\\\\.\\(png|jpg\\)\" } | ForEach-Object { $_.Name })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\ASUS\\\\Desktop\\\\Unity\\\\Project\\\\Mini_Project\\\\Assets\\\\Project\\\\1_Demos\\\\PostProcessing_Exception\\\\Render Objects\" | Where-Object { $_.Extension -match \"\\\\.\\(png|jpg\\)\" } | ForEach-Object { $_.Name })",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\ASUS\\\\Desktop\\\\Unity\\\\Project\\\\Mini_Project\\\\Assets\\\\Project\\\\1_Demos\\\\PostProcessing_Exception\\\\\" -Recurse -Force | Select-Object FullName, @{Name='Type'; Expression={if \\($_.PSIsContainer\\) { 'DIR' } else { 'FILE' }}} | Sort-Object FullName)"
     ],
     "deny": [],
     "ask": []
