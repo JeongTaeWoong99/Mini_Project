@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -206,6 +207,7 @@ namespace DesignPatterns.Utilities
             }
         }
         // Unload by an explicit path immediately
+        [Obsolete("Obsolete")]
         public void UnloadSceneImmediately(string scenePath)
         {
             Scene sceneToUnload = SceneManager.GetSceneByPath(scenePath);

@@ -119,6 +119,7 @@ namespace DesignPatterns.DirtyFlag
             Gizmos.DrawWireSphere(transform.position + m_CenterOffset, m_LoadRadius);
         }
 
+        [Obsolete("Obsolete")]
         void OnDestroy()
         {
             // [SceneLoader.UnloadSceneImmediately 내부 동작]

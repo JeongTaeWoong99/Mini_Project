@@ -15,20 +15,20 @@ namespace DesignPatterns.Factory
         public string ProductName { get => productName; set => productName = value; }
 
         // Private 변수
-        private ParticleSystem particleSystem;
+        private ParticleSystem _particleSystem;
 
         public void Initialize()
         {
             gameObject.name  = productName;
             
             // 고유한 초기화 로직을 여기에 추가
-            particleSystem   = GetComponentInChildren<ParticleSystem>();
+            _particleSystem   = GetComponentInChildren<ParticleSystem>();
 
-            if (particleSystem == null)
+            if (_particleSystem == null)
                 return;
 
-            particleSystem.Stop();
-            particleSystem.Play();
+            _particleSystem.Stop();
+            _particleSystem.Play();
         }
     }
 }
