@@ -4,7 +4,6 @@ using System.Collections;
 using DesignPatterns.Utilities;
 using UnityEngine;
 using DesignPatterns.Events;
-using UnityEditorInternal;
 
 namespace DesignPatterns
 {

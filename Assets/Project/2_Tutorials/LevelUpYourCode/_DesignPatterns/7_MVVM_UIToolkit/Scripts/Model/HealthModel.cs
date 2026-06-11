@@ -1,4 +1,6 @@
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -42,6 +44,7 @@ namespace DesignPatterns.MVVM
         /// 형식(예 : 배경 스타일용 색상, 텍스트 프로퍼티용 문자열)으로 변환한다.
         /// 필요에 따라 추가 컨버터를 등록할 수 있다.
         /// </summary>
+#if UNITY_EDITOR
         [InitializeOnLoadMethod]
         public static void RegisterConverters()
         {
@@ -70,6 +73,7 @@ namespace DesignPatterns.MVVM
             // InitializeOnLoadMethod에서 컨버터 그룹을 등록하여 UI Builder에서 접근 가능하게 함
             ConverterGroups.RegisterConverterGroup(converter);
         }
+#endif
 
         // Inspector에서 입력 시 유효 범위로 클램핑
         private void OnValidate()

@@ -3,7 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using DesignPatterns.Events;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.IO;
 using System.Collections.Generic;
 
@@ -284,6 +286,7 @@ namespace DesignPatterns.Utilities
         }
     }
 
+#if UNITY_EDITOR
     /// <summary>
     /// Logs console text for the .unity scene files in the project for easier copy and paste.
     /// </summary>
@@ -311,4 +314,5 @@ namespace DesignPatterns.Utilities
             }
         }
     }
+#endif
 }
