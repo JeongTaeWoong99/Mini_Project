@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Packed Assets1
+  m_Name: Packed Assets Local
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets1
-  m_GUID: b1e0fe323ae12454ba63b229cc44a35d
+  m_GroupName: Packed Assets Local
+  m_GUID: 3f930159577c5454496c6a838ff663ba
   m_SerializeEntries:
-  - m_GUID: 8318f91a29025114b9e00b5ccff2e314
-    m_Address: item_sword_3
+  - m_GUID: 6504089c5ee593e44a1f7efc27551600
+    m_Address: item_sword_2
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cea1fbc431ab2834fb6096c1b86ddf3d
-    m_Address: item_sword_2
+  - m_GUID: ccfbd04013133bc489e2837c95833ace
+    m_Address: item_sword_1
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -29,5 +29,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: bb842bac248946a4a89b7f8336c0de04, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 21513082ccd00b5499fc4e21da9494f7, type: 2}
-    - {fileID: 11400000, guid: 308591a1d42027743b1a92f55af7b6bc, type: 2}
+    - {fileID: 11400000, guid: a49ffa1ae7d16e64c9e41f94019f0277, type: 2}
+    - {fileID: 11400000, guid: b26b35e85d1f9af40a29aca443007b93, type: 2}

@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/1_Demos/DesktopWindow_Control/DesktopWindow_Control.unity
     guid: 6f3d855417fb4d84bb3c3cab7f924ca7
   - enabled: 1
