@@ -1,4 +1,4 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -8,7 +8,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 /// - 사용자가 입력한 Addressables 키(라벨/주소)로 Sprite를 로드해
 ///   데모용 프리팹(SpriteRenderer)에 적용하는 간단한 예제입니다.
 ///
-/// 중요 포인트:
+/// 중요 포인트 :
 /// - Addressables.LoadAssetAsync는 '필요 번들을 자동 다운로드'할 수 있습니다.
 ///   (캐시에 없으면 네트워크 발생) → 부팅 단계에서 GetDownloadSize / 선행 다운로드 권장.
 /// - 로드 결과(핸들)는 참조 카운팅 기반입니다. 더 이상 사용하지 않으면 Release로 해제하세요.
@@ -16,11 +16,11 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 /// </summary>
 public class SceneGame : MonoBehaviour
 {
-    [Header("Demo")]
+    [Header("< Demo >")]
     [Tooltip("사용자가 Addressables 키(라벨/주소)를 입력하는 필드입니다.")]
     public TMP_InputField inputField;
 
-    [Tooltip("로드한 Sprite를 표시할 데모 프리팹(예: SpriteRenderer 포함) 입니다.")]
+    [Tooltip("로드한 Sprite를 표시할 데모 프리팹(예 : SpriteRenderer 포함) 입니다.")]
     public GameObject prefab;
 
     /// <summary>
@@ -30,6 +30,18 @@ public class SceneGame : MonoBehaviour
     ///   일괄 언로드 타이밍에 정리하는 등 일관된 정책을 사용하세요.
     /// </summary>
     private AsyncOperationHandle<Sprite>? _lastLoadHandle;
+
+//----------------------------------------------------------------------------------------------------------------------
+
+    private void OnDestroy()
+    {
+        // 씬 종료/오브젝트 파괴 시 마지막 핸들 정리(누수 방지)
+        if (_lastLoadHandle is { } last && last.IsValid())
+        {
+            Addressables.Release(last);
+            _lastLoadHandle = null;
+        }
+    }
 
     // -------- Load demo --------
 
@@ -73,11 +85,11 @@ public class SceneGame : MonoBehaviour
             _lastLoadHandle = null;
         }
 
-        // 3) 로드 요청 (주의: 캐시에 없으면 네트워크 다운로드가 발생할 수 있음)
+        // 3) 로드 요청 (주의 : 캐시에 없으면 네트워크 다운로드가 발생할 수 있음)
         var handle = Addressables.LoadAssetAsync<Sprite>(key);
         if (!handle.IsValid())
         {
-            Debug.LogError("[Addr] LoadAssetAsync<Sprite>: 핸들 무효");
+            Debug.LogError("[Addr] LoadAssetAsync<Sprite> : 핸들 무효");
             return;
         }
 
@@ -89,15 +101,18 @@ public class SceneGame : MonoBehaviour
         {
             if (!op.IsValid())
             {
-                Debug.LogError("[Addr] LoadAssetAsync<Sprite]: Completed 시점 핸들 무효");
+                Debug.LogError("[Addr] LoadAssetAsync<Sprite] : Completed 시점 핸들 무효");
                 return;
             }
 
             if (op.Status != AsyncOperationStatus.Succeeded || op.Result == null)
             {
-                Debug.LogError($"[Addr] Sprite 로드 실패: {key} ({op.Status})");
+                Debug.LogError($"[Addr] Sprite 로드 실패 : {key} ({op.Status})");
                 // 실패 시 핸들 해제
-                if (op.IsValid()) Addressables.Release(op);
+                if (op.IsValid())
+                {
+                    Addressables.Release(op);
+                }
                 _lastLoadHandle = null;
                 return;
             }
@@ -107,20 +122,26 @@ public class SceneGame : MonoBehaviour
             {
                 Debug.LogError("[Addr] prefab 참조가 비어있습니다.");
                 // 더 이상 사용할 계획이 없으므로 핸들 해제
-                if (op.IsValid()) Addressables.Release(op);
+                if (op.IsValid())
+                {
+                    Addressables.Release(op);
+                }
                 _lastLoadHandle = null;
                 return;
             }
 
             // 6) 데모 오브젝트 생성 후 Sprite 적용
             var obj = Instantiate(prefab, new Vector3(0, 1, 0), Quaternion.identity);
-            var sr = obj.GetComponent<SpriteRenderer>();
-            if (sr != null) sr.sprite = op.Result;
+            var sr  = obj.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                sr.sprite = op.Result;
+            }
 
-            // 데모: 1초 뒤 파괴(실제 게임에선 오브젝트 수명과 함께 핸들 관리 정책 필요)
+            // 데모 : 1초 뒤 파괴(실제 게임에선 오브젝트 수명과 함께 핸들 관리 정책 필요)
             Destroy(obj, 1f);
 
-            // 참고:
+            // 참고 :
             // - 여기서 곧바로 Addressables.Release(op)를 호출하면, 번들이 언로드될 수 있어
             //   sr.sprite 참조가 깨질 수 있습니다. (상황/설정에 따라 다름)
             // - 안전하게 운영하려면, 오브젝트가 파괴될 때(또는 교체될 때) Release 하거나,
@@ -128,15 +149,5 @@ public class SceneGame : MonoBehaviour
             // - 본 예제에서는 마지막 핸들을 필드에 보관(_lastLoadHandle)하고,
             //   다음 로드 시 이전 핸들을 해제하는 전략을 사용합니다.
         };
-    }
-
-    private void OnDestroy()
-    {
-        // 씬 종료/오브젝트 파괴 시 마지막 핸들 정리(누수 방지)
-        if (_lastLoadHandle is { } last && last.IsValid())
-        {
-            Addressables.Release(last);
-            _lastLoadHandle = null;
-        }
     }
 }

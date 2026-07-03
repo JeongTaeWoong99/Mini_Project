@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -14,13 +14,13 @@ using Slider = UnityEngine.UI.Slider;
 /// <summary>
 /// SceneIntro
 /// - 앱 기동 시 실행되는 인트로 씬에서 Addressables 패치(카탈로그/리소스)를 관리하는 예제입니다.
-/// - 플로우:
-///   1) CheckForCatalogUpdates: 카탈로그 변경 유무 확인 (네트워크 경량)
-///   2) (변경 있음) 사용자 동의 후 UpdateCatalogs: 카탈로그 최신화 (리소스 다운로드는 아님)
-///   3) GetDownloadSizeAsync: 실제 필요한 다운로드 용량 계산 (번들 단위 합산)
+/// - 플로우 :
+///   1) CheckForCatalogUpdates : 카탈로그 변경 유무 확인 (네트워크 경량)
+///   2) (변경 있음) 사용자 동의 후 UpdateCatalogs : 카탈로그 최신화 (리소스 다운로드는 아님)
+///   3) GetDownloadSizeAsync : 실제 필요한 다운로드 용량 계산 (번들 단위 합산)
 ///   4) 팝업 안내 → 동의 시 DownloadDependenciesAsync(리소스 다운로드)
 ///   5) 완료/건너뛰기 시 Game 씬 진입
-/// - 주의:
+/// - 주의 :
 ///   * Addressables는 '리소스 단위'가 아닌 '번들 단위'로 다운로드합니다.
 ///   * UpdateCatalogs는 메타데이터 교체이므로, 그 자체로 대용량 다운로드가 발생하지 않습니다.
 ///   * UpdateCatalogs는 되돌릴 수 있는 공식 API가 없으므로, 실서비스에선 '동의 후 적용'이 정석입니다.
@@ -31,30 +31,30 @@ public class SceneIntro : MonoBehaviour
     // 인스펙터 노출 필드 (UI/옵션)
     // ===============================
 
-    [Header("진행률 UI (선택 표시)")]
+    [Header("< 진행률 UI (선택 표시) >")]
     [Tooltip("다운로드 진행 상황을 보여줄 UI 전체 컨테이너입니다. 다운로드 중에만 활성화됩니다.")]
     [SerializeField] private GameObject containerProgress;
 
     [Tooltip("카탈로그 업데이트/다운로드 진행률(0~1)을 표시하는 슬라이더입니다.")]
     [SerializeField] private Slider progressBar;
 
-    [Tooltip("진행 상태를 텍스트로 표시합니다. 예: \"Download - 37%\"")]
+    [Tooltip("진행 상태를 텍스트로 표시합니다. 예 : \"Download - 37%\"")]
     [SerializeField] private TextMeshProUGUI progressText;
 
-    [Header("다운로드 범위 (선택)")]
+    [Header("< 다운로드 범위 (선택) >")]
     [Tooltip(
         "Addressables에서 패치(다운로드) 대상 범위를 지정합니다.\n" +
-        "비워두면 '현재 카탈로그가 알고 있는 모든 키'를 대상으로 계산/다운로드합니다(주의: 과도할 수 있음).\n" +
+        "비워두면 '현재 카탈로그가 알고 있는 모든 키'를 대상으로 계산/다운로드합니다(주의 : 과도할 수 있음).\n" +
         "특정 라벨이나 주소를 넣으면 '그 키들이 참조하는 번들 전체'가 다운로드됩니다.\n" +
         "※ Addressables는 '리소스 단위'가 아닌 '번들 단위'로 내려받습니다."
     )]
     [SerializeField] private List<string> downloadScopes = new();
 
-    [Header("안내 팝업")]
+    [Header("< 안내 팝업 >")]
     [Tooltip("패치 용량 안내와 [확인/취소] 버튼을 담은 팝업입니다.")]
     public GameObject panelPopup;
 
-    [Tooltip("팝업에 표시되는 예상 다운로드 용량(예: \"12.3 MB\") 텍스트입니다.")]
+    [Tooltip("팝업에 표시되는 예상 다운로드 용량(예 : \"12.3 MB\") 텍스트입니다.")]
     public TextMeshProUGUI textDownloadSize;
 
     // ===============================
@@ -67,8 +67,11 @@ public class SceneIntro : MonoBehaviour
     /// <summary>진행률 UI 갱신 코루틴 핸들</summary>
     private Coroutine _progressRoutine;
 
-    /// <summary>패치 완료 후 이동할 씬 이름(예: 실제 게임 씬)</summary>
+    /// <summary>패치 완료 후 이동할 씬 이름(예 : 실제 게임 씬)</summary>
     private const string NameSceneGame = "Game";
+
+    /// <summary>다운로드 완료/불필요 후, 키 입력을 기다리는 상태(true면 아무 키나 누르면 Game 진입)</summary>
+    private bool _canEnterGame;
 
     // ===============================
     // 생명주기
@@ -77,8 +80,14 @@ public class SceneIntro : MonoBehaviour
     private void Awake()
     {
         // 초기 UI 상태 정리
-        if (containerProgress) containerProgress.SetActive(false);
-        if (panelPopup) panelPopup.SetActive(false);
+        if (containerProgress)
+        {
+            containerProgress.SetActive(false);
+        }
+        if (panelPopup)
+        {
+            panelPopup.SetActive(false);
+        }
     }
 
     private void Start()
@@ -87,13 +96,23 @@ public class SceneIntro : MonoBehaviour
         CheckUpdate();
     }
 
+    private void Update()
+    {
+        // 다운로드 완료(또는 받을 것 없음) 상태에서, 아무 키/클릭 입력 시 Game 씬으로 진입
+        if (_canEnterGame && Input.anyKeyDown)
+        {
+            _canEnterGame = false;
+            SceneManager.LoadScene(NameSceneGame);
+        }
+    }
+
     // ===============================
     // Catalog Update (확인/적용)
     // ===============================
 
     /// <summary>
     /// 카탈로그 변경 유무 확인
-    /// - 네트워크 경량: 원격 hash와 현재 카탈로그(로컬/캐시) 비교
+    /// - 네트워크 경량 : 원격 hash와 현재 카탈로그(로컬/캐시) 비교
     /// - 결과가 0개면 최신, 1개 이상이면 업데이트 필요
     /// </summary>
     private void CheckUpdate()
@@ -101,11 +120,11 @@ public class SceneIntro : MonoBehaviour
         var check = Addressables.CheckForCatalogUpdates();
         if (!check.IsValid())
         {
-            Debug.LogError("[Addr] CheckForCatalogUpdates: 핸들 무효");
+            Debug.LogError("[Addr] CheckForCatalogUpdates : 핸들 무효");
             return;
         }
 
-        Debug.Log("[Addr] CheckForCatalogUpdates: 대기 중…");
+        Debug.Log("[Addr] CheckForCatalogUpdates : 대기 중…");
         check.Completed += CheckUpdateComplete; // 완료 콜백 등록
     }
 
@@ -117,11 +136,11 @@ public class SceneIntro : MonoBehaviour
     {
         if (!check.IsValid())
         {
-            Debug.LogError("[Addr] CheckForCatalogUpdates: Completed 시점 핸들 무효");
+            Debug.LogError("[Addr] CheckForCatalogUpdates : Completed 시점 핸들 무효");
             return;
         }
 
-        Debug.Log($"[Addr] CheckForCatalogUpdates 완료: {check.Status}");
+        Debug.Log($"[Addr] CheckForCatalogUpdates 완료 : {check.Status}");
         if (check.Status != AsyncOperationStatus.Succeeded)
         {
             Debug.LogError("[Addr] 카탈로그 변경 확인 실패");
@@ -129,10 +148,13 @@ public class SceneIntro : MonoBehaviour
         }
 
         var list = check.Result; // 업데이트 필요 카탈로그 ID들
-        if (list is { Count: > 0 })
+        if (list is { Count : > 0 })
         {
             Debug.Log($"[Addr] {list.Count}개의 카탈로그 업데이트 필요");
-            foreach (var cat in list) Debug.Log($"   - {cat}");
+            foreach (var cat in list)
+            {
+                Debug.Log($"   - {cat}");
+            }
             _listUpdateCatalog = list;
 
             UpdateProgressUI(0f, "UpdateCatalogs Ready");
@@ -150,7 +172,7 @@ public class SceneIntro : MonoBehaviour
             OnClickCheckDownloadSize();
         }
 
-        // (선택) check 핸들 해제: Addressables.Release(check);
+        // (선택) check 핸들 해제 : Addressables.Release(check);
     }
 
     /// <summary>
@@ -169,11 +191,11 @@ public class SceneIntro : MonoBehaviour
         var update = Addressables.UpdateCatalogs(_listUpdateCatalog);
         if (!update.IsValid())
         {
-            Debug.LogError("[Addr] UpdateCatalogs: 핸들 무효");
+            Debug.LogError("[Addr] UpdateCatalogs : 핸들 무효");
             return;
         }
 
-        Debug.Log("[Addr] UpdateCatalogs: 진행 중…");
+        Debug.Log("[Addr] UpdateCatalogs : 진행 중…");
         BeginProgress(update, "Catalog Update");
         update.Completed += UpdateCatalogComplete;
     }
@@ -189,7 +211,7 @@ public class SceneIntro : MonoBehaviour
 
         if (!update.IsValid())
         {
-            Debug.LogError("[Addr] UpdateCatalogs: Completed 시점 핸들 무효");
+            Debug.LogError("[Addr] UpdateCatalogs : Completed 시점 핸들 무효");
             return;
         }
 
@@ -197,8 +219,12 @@ public class SceneIntro : MonoBehaviour
         {
             Debug.Log("카탈로그 갱신 완료");
             if (update.Result != null)
+            {
                 foreach (var locator in update.Result)
-                    Debug.Log($"   - Locator: {locator?.LocatorId}");
+                {
+                    Debug.Log($"   - Locator : {locator?.LocatorId}");
+                }
+            }
 
             // 카탈로그 최신화 이후 → 용량 계산
             OnClickCheckDownloadSize();
@@ -217,7 +243,7 @@ public class SceneIntro : MonoBehaviour
 
     /// <summary>
     /// [팝업] 패치 건너뛰기 (사용자 취소)
-    /// - 실무 정책에 따라: 강제 패치가 아니라면 게임 씬으로 바로 진입
+    /// - 실무 정책에 따라 : 강제 패치가 아니라면 게임 씬으로 바로 진입
     /// </summary>
     public void OnClickPopupCancel()
     {
@@ -240,7 +266,7 @@ public class SceneIntro : MonoBehaviour
     /// <summary>
     /// 다운로드 필요 용량 계산
     /// - 키 집합 → ResourceLocations(Union) → 해당 로케이션들이 필요로 하는 '번들 총합 용량'
-    /// - 주의: IResourceLocation 리스트는 '리소스 단위 좌표'이며, 실제 다운로드는 '번들 단위'
+    /// - 주의 : IResourceLocation 리스트는 '리소스 단위 좌표'이며, 실제 다운로드는 '번들 단위'
     /// </summary>
     private void OnClickCheckDownloadSize()
     {
@@ -252,11 +278,11 @@ public class SceneIntro : MonoBehaviour
             return;
         }
 
-        // 키들을 '리소스 위치'로 해석 (중복 제거: Union)
+        // 키들을 '리소스 위치'로 해석 (중복 제거 : Union)
         var locHandle = Addressables.LoadResourceLocationsAsync(keys, Addressables.MergeMode.Union);
         if (!locHandle.IsValid())
         {
-            Debug.LogError("[Addr] LoadResourceLocationsAsync: 핸들 무효");
+            Debug.LogError("[Addr] LoadResourceLocationsAsync : 핸들 무효");
             return;
         }
 
@@ -273,8 +299,11 @@ public class SceneIntro : MonoBehaviour
             var sizeHandle = Addressables.GetDownloadSizeAsync(locations);
             if (!sizeHandle.IsValid())
             {
-                Debug.LogError("[Addr] GetDownloadSizeAsync(locations): 핸들 무효");
-                if (locationsOp.IsValid()) Addressables.Release(locationsOp); // 중요: 로케이션 해제
+                Debug.LogError("[Addr] GetDownloadSizeAsync(locations) : 핸들 무효");
+                if (locationsOp.IsValid()) // 중요 : 로케이션 해제
+                {
+                    Addressables.Release(locationsOp);
+                }
                 return;
             }
 
@@ -283,34 +312,41 @@ public class SceneIntro : MonoBehaviour
                 if (sizeOp.IsValid())
                 {
                     long bytes = sizeOp.Result;
-                    var mb = GetSize(bytes);
+                    var  mb    = GetSize(bytes);
 
                     // [상황 분기]
-                    // 1) bytes <= 0: 리소스가 모두 캐시에 있으므로 다운로드 불필요 → 바로 게임 진입
-                    // 2) bytes > 0: 사용자에게 용량 안내 팝업 → 확인 시 다운로드
+                    // 1) bytes <= 0 : 리소스가 모두 캐시에 있으므로 다운로드 불필요 → 바로 게임 진입
+                    // 2) bytes > 0  : 사용자에게 용량 안내 팝업 → 확인 시 다운로드
                     if (bytes > 0)
                     {
                         if (panelPopup)
                         {
                             panelPopup.SetActive(true);
-                            if (textDownloadSize) textDownloadSize.text = mb;
+                            if (textDownloadSize)
+                            {
+                                textDownloadSize.text = mb;
+                            }
                         }
                     }
                     else
                     {
-                        SceneManager.LoadScene(NameSceneGame);
+                        // 받을 것이 없으면(이미 최신/캐시됨) 바로 넘기지 않고, 안내 후 키 입력 대기
+                        ShowEnterPrompt("패치할 내용이 없습니다. 아무 키나 눌러 게임을 시작하세요.");
                     }
 
-                    Debug.Log($"[Addr] 필요 다운로드 용량: {mb} ({bytes} bytes)");
+                    Debug.Log($"[Addr] 필요 다운로드 용량 : {mb} ({bytes} bytes)");
                     Addressables.Release(sizeOp); // 해제
                 }
                 else
                 {
-                    Debug.Log("[Addr] GetDownloadSizeAsync Completed: 핸들 무효");
+                    Debug.Log("[Addr] GetDownloadSizeAsync Completed : 핸들 무효");
                 }
 
                 // 로케이션 핸들 해제(LoadResourceLocationsAsync 결과는 자동 해제 아님)
-                if (locationsOp.IsValid()) Addressables.Release(locationsOp);
+                if (locationsOp.IsValid())
+                {
+                    Addressables.Release(locationsOp);
+                }
             };
         };
     }
@@ -322,38 +358,48 @@ public class SceneIntro : MonoBehaviour
     private string GetSize(long bytes)
     {
         var mb = bytes / (1024f * 1024f);
-        if (mb >= 0.1) return $"{mb:F1} MB";
+        if (mb >= 0.1)
+        {
+            return $"{mb:F1} MB";
+        }
         mb = mb / 1024f;
-        if (mb >= 0.1) return $"{mb:F1} KB";
+        if (mb >= 0.1)
+        {
+            return $"{mb:F1} KB";
+        }
         return $"{bytes} bytes";
     }
 
     /// <summary>
     /// 실제 다운로드 시작
     /// - 키 집합 → 로케이션(Union) → DownloadDependenciesAsync(locations)
-    /// - true: 동일 의존성 중복 허용(이미 캐시에 있으면 내려받지 않음)
+    /// - true : 동일 의존성 중복 허용(이미 캐시에 있으면 내려받지 않음)
     /// - 완료 후 게임 씬으로 전환
     /// </summary>
     private void OnClickDownloadStart()
     {
-        
         var keys = BuildDownloadKeys();
-        if (keys.Count == 0) { UpdateProgressUI(0f, "No Targets"); return; }
+        if (keys.Count == 0)
+        {
+            UpdateProgressUI(0f, "No Targets");
+            return;
+        }
 
         ResolveRemoteBundleLocations(
             keys,
-            onSuccess: remoteBundles =>
+            onSuccess : remoteBundles =>
             {
                 if (remoteBundles.Count == 0)
                 {
                     UpdateProgressUI(1f, "Nothing to download");
+                    ShowEnterPrompt("다운로드할 내용이 없습니다. 아무 키나 눌러 게임을 시작하세요.");
                     return;
                 }
 
                 var dlHandle = Addressables.DownloadDependenciesAsync(remoteBundles, true);
                 if (!dlHandle.IsValid())
                 {
-                    Debug.LogError("[Addr] DownloadDependenciesAsync(remoteBundles): invalid handle");
+                    Debug.LogError("[Addr] DownloadDependenciesAsync(remoteBundles) : invalid handle");
                     return;
                 }
 
@@ -362,11 +408,14 @@ public class SceneIntro : MonoBehaviour
                 {
                     EndProgress("Download Complete");
                     Debug.Log("다운로드 완료");
-                    SceneManager.LoadScene(NameSceneGame);
-                    if (op.IsValid()) Addressables.Release(op);
+                    ShowEnterPrompt("다운로드 완료! 아무 키나 눌러 게임을 시작하세요.");
+                    if (op.IsValid())
+                    {
+                        Addressables.Release(op);
+                    }
                 };
             },
-            onError: msg => Debug.LogError("[Addr] " + msg)
+            onError : msg => Debug.LogError("[Addr] " + msg)
         );
     }
 
@@ -377,14 +426,21 @@ public class SceneIntro : MonoBehaviour
     /// <summary>진행률 코루틴 시작(AsyncOperationHandle.PercentComplete 폴링)</summary>
     private void BeginProgress(AsyncOperationHandle handle, string label)
     {
-        if (_progressRoutine != null) StopCoroutine(_progressRoutine);
+        if (_progressRoutine != null)
+        {
+            StopCoroutine(_progressRoutine);
+        }
         _progressRoutine = StartCoroutine(CoTrackProgress(handle, label));
     }
 
     /// <summary>진행률 코루틴 종료 및 완료 라벨 표시</summary>
     private void EndProgress(string labelDone = "Complete")
     {
-        if (_progressRoutine != null) { StopCoroutine(_progressRoutine); _progressRoutine = null; }
+        if (_progressRoutine != null)
+        {
+            StopCoroutine(_progressRoutine);
+            _progressRoutine = null;
+        }
         UpdateProgressUI(1f, labelDone);
     }
 
@@ -402,7 +458,7 @@ public class SceneIntro : MonoBehaviour
 
             if (p - lastLogged >= 0.02f)
             {
-                Debug.Log($"[Addr] {label}: {(int)(p * 100f)}%");
+                Debug.Log($"[Addr] {label} : {(int)(p * 100f)}%");
                 lastLogged = p;
             }
             yield return null;
@@ -411,15 +467,45 @@ public class SceneIntro : MonoBehaviour
         _progressRoutine = null;
     }
 
+    /// <summary>
+    /// 다운로드 완료/불필요 시, 자동 전환 대신 "아무 키나 눌러 시작" 안내를 띄우고 입력 대기 상태로 전환.
+    /// - 실제 게임처럼 유저가 직접 넘어가도록 하는 흐름.
+    /// - 실제 진입은 Update()에서 Input.anyKeyDown 을 감지해 처리.
+    /// </summary>
+    private void ShowEnterPrompt(string message)
+    {
+        _canEnterGame = true;
+
+        // 안내 텍스트가 보이도록 진행률 컨테이너를 켜고, 바는 가득 채움
+        if (containerProgress)
+        {
+            containerProgress.SetActive(true);
+        }
+        if (progressBar)
+        {
+            progressBar.value = 1f;
+        }
+        if (progressText)
+        {
+            progressText.text = message;
+        }
+    }
+
     /// <summary>진행률 바/텍스트 갱신</summary>
     private void UpdateProgressUI(float normalized, string label)
     {
-        if (progressBar) progressBar.value = Mathf.Clamp01(normalized);
-        if (progressText) progressText.text = $"{label} - {(int)(Mathf.Clamp01(normalized) * 100f)}%";
+        if (progressBar)
+        {
+            progressBar.value = Mathf.Clamp01(normalized);
+        }
+        if (progressText)
+        {
+            progressText.text = $"{label} - {(int)(Mathf.Clamp01(normalized) * 100f)}%";
+        }
     }
 
     // ===============================
-    // 헬퍼: 다운로드 대상 키 구성
+    // 헬퍼 : 다운로드 대상 키 구성
     // ===============================
 
     /// <summary>
@@ -429,17 +515,25 @@ public class SceneIntro : MonoBehaviour
     /// </summary>
     private List<object> BuildDownloadKeys()
     {
-        if (downloadScopes is { Count: > 0 })
+        if (downloadScopes is { Count : > 0 })
+        {
             return downloadScopes.Cast<object>().ToList();
+        }
 
         var set = new HashSet<object>();
         foreach (var locator in Addressables.ResourceLocators)
         {
             if (locator is IResourceLocator rl)
-                foreach (var k in rl.Keys) set.Add(k);
+            {
+                foreach (var k in rl.Keys)
+                {
+                    set.Add(k);
+                }
+            }
         }
         return set.ToList();
     }
+
     // ===[1] 원격 번들 판별 유틸 ===
     private static bool IsBundle(IResourceLocation loc)
     {
@@ -449,12 +543,17 @@ public class SceneIntro : MonoBehaviour
 
     private static bool IsRemote(IResourceLocation loc)
     {
-        if (loc == null) return false;
+        if (loc == null)
+        {
+            return false;
+        }
         var id = loc.InternalId ?? string.Empty;
-        // 가장 안전한 1차 판별: URL 스킴
+        // 가장 안전한 1차 판별 : URL 스킴
         if (id.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
             id.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+        {
             return true;
+        }
 
         // (선택) RemoteLoadPath 접두 검증이 필요하면 아래처럼 보강
         // var expandedRemote = Addressables.ResolveInternalId("{{YourRemoteLoadPath}}");
@@ -467,22 +566,33 @@ public class SceneIntro : MonoBehaviour
     // ===[2] 그래프(의존성 포함)에서 "원격 번들"만 추려내기 ===
     private static List<IResourceLocation> CollectRemoteBundlesDeep(IEnumerable<IResourceLocation> roots)
     {
-        var result = new HashSet<IResourceLocation>();
+        var result  = new HashSet<IResourceLocation>();
         var visited = new HashSet<IResourceLocation>();
-        var stack = new Stack<IResourceLocation>(roots.Where(l => l != null));
+        var stack   = new Stack<IResourceLocation>(roots.Where(l => l != null));
 
         while (stack.Count > 0)
         {
             var loc = stack.Pop();
-            if (!visited.Add(loc)) continue;
+            if (!visited.Add(loc))
+            {
+                continue;
+            }
 
             if (IsBundle(loc) && IsRemote(loc))
+            {
                 result.Add(loc);
+            }
 
             if (loc.Dependencies != null)
+            {
                 foreach (var d in loc.Dependencies)
+                {
                     if (d != null)
+                    {
                         stack.Push(d);
+                    }
+                }
+            }
         }
 
         return result.ToList();
@@ -497,7 +607,7 @@ public class SceneIntro : MonoBehaviour
         var locHandle = Addressables.LoadResourceLocationsAsync(keys, Addressables.MergeMode.Union);
         if (!locHandle.IsValid())
         {
-            onError?.Invoke("LoadResourceLocationsAsync: invalid handle");
+            onError?.Invoke("LoadResourceLocationsAsync : invalid handle");
             return;
         }
 
@@ -516,7 +626,10 @@ public class SceneIntro : MonoBehaviour
             }
             finally
             {
-                if (op.IsValid()) Addressables.Release(op);
+                if (op.IsValid())
+                {
+                    Addressables.Release(op);
+                }
             }
         };
     }
