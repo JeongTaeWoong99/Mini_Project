@@ -6,16 +6,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// ErrorLogOverlay
+/// - 런타임/빌드에서 발생하는 로그·경고·에러(예외 포함)를 화면 위 오버레이로 수집·표시하는 진단용 컴포넌트.
+/// - Application.logMessageReceivedThreaded 로 "모든 스레드"의 로그를 큐에 모은 뒤,
+///   메인 스레드(Update)에서 주기적으로 TMP 텍스트에 반영한다(스레드 안전 처리).
+/// - 옵션 : 연속 중복 로그 접기(x2·x3…), 로그 타입별 필터, 새 에러 발생 시 화면 토스트 알림.
+/// - 에디터/개발 빌드에서는 핫키(기본 F1)로 오버레이를 숨김/표시할 수 있다.
+/// - DontDestroyOnLoad 로 씬 전환에도 살아남아 계속 로그를 수집한다.
+/// </summary>
 [AddComponentMenu("Diagnostics/Error Log Overlay")]
 public sealed class ErrorLogOverlay : MonoBehaviour
 {
-    [Header("< UI References >")]
-    [SerializeField] private TextMeshProUGUI logText;    // 스크롤뷰 안의 본문 텍스트
-    [SerializeField] private ScrollRect      scrollRect; // 선택 (자동 스크롤)
-    [SerializeField] private CanvasGroup     toastGroup; // 선택 (토스트 패널)
-    [SerializeField] private TextMeshProUGUI toastText;  // 선택 (토스트 텍스트)
+    [CenterHeader("UI References")]
+    [SerializeField] private TextMeshProUGUI logText;    // 스크롤뷰 안의 본문 텍스트 (필수)
+    [SerializeField] private ScrollRect      scrollRect; // 선택 : 로그 뷰의 ScrollRect. 넣으면 새 로그마다 자동으로 맨 아래로 스크롤 / 없으면 자동 스크롤만 안 됨(로그 표시는 정상)
+    [SerializeField] private CanvasGroup     toastGroup; // 선택 : 토스트 패널의 CanvasGroup. 넣으면 에러 시 패널이 잠깐 떴다 페이드아웃 / 없으면 토스트 미표시(로그창엔 그대로 남음)
+    [SerializeField] private TextMeshProUGUI toastText;  // 선택 : 토스트에 표시할 메시지 텍스트. toastGroup 과 "둘 다" 있어야 토스트가 동작
+    // ※ "토스트(toast)" = 모바일 알림처럼 화면에 잠깐 떴다 자동으로 사라지는 짧은 팝업 알림 (안드로이드 Toast 에서 유래)
 
-    [Header("< Behavior >")]
+    [CenterHeader("Behavior")]
     [Tooltip("표시 최대 줄 수(오래된 로그 자동 삭제)")]
     [SerializeField] private int   maxLines           = 300;
     [Tooltip("스레드에서 수신한 로그를 메인 스레드에서 UI로 반영하는 주기(초)")]
@@ -28,7 +38,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
     [SerializeField] private bool  showToastOnError   = true;
     [SerializeField] private float toastSeconds       = 4f;
 
-    [Header("< Filter >")]
+    [CenterHeader("Filter")]
     public bool showLog       = true;
     public bool showWarning   = true;
     public bool showError     = true;
@@ -36,7 +46,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
     public bool showException = true;
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    [Header("< Hotkeys (Editor/Dev) >")]
+    [CenterHeader("Hotkeys (Editor/Dev)")]
     [SerializeField] private KeyCode toggleKey = KeyCode.F1;   // 오버레이 숨김/표시
 #endif
 
@@ -58,31 +68,37 @@ public sealed class ErrorLogOverlay : MonoBehaviour
 
 //----------------------------------------------------------------------------------------------------------------------
 
+    // logText 참조가 비어 있으면 같은 오브젝트에서 자동 획득 + 씬 전환에도 유지(DontDestroyOnLoad).
     private void Awake()
     {
         if (!logText)
         {
             TryGetComponent(out logText);
         }
+
         DontDestroyOnLoad(gameObject);
     }
 
+    // 활성화 시 로그 수신 콜백(모든 스레드) 등록.
     private void OnEnable()
     {
         Application.logMessageReceivedThreaded += OnLogThreaded; // 모든 스레드
         // 필요 시 : Application.logMessageReceived += OnLogMainThread;
     }
 
+    // 비활성화 시 로그 수신 콜백 해제(중복/누수 방지).
     private void OnDisable()
     {
         Application.logMessageReceivedThreaded -= OnLogThreaded;
     }
 
+    // 파괴 시 로그 수신 콜백 해제(안전망).
     private void OnDestroy()
     {
         Application.logMessageReceivedThreaded -= OnLogThreaded;
     }
 
+    // 매 프레임 : (에디터/개발) 핫키 토글 + 큐 비우기 + 주기적으로 UI 텍스트 갱신.
     private void Update()
     {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -101,6 +117,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
         }
     }
 
+    // 스레드에서 들어온 로그 1건을 필터링 후 큐에 적재(UI 반영은 메인 스레드 Update 에서).
     private void OnLogThreaded(string condition, string stackTrace, LogType type)
     {
         // 필터 : 비용 줄이기 위해 조기 리턴
@@ -117,6 +134,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
         });
     }
 
+    // 로그 타입별 표시 여부(showLog/showWarning/…) 필터 판정.
     private bool PassFilter(LogType t) => t switch
     {
         LogType.Log       => showLog,
@@ -127,6 +145,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
         _                 => true
     };
 
+    // 큐에 쌓인 로그를 표시 버퍼로 옮긴다 : 연속 중복은 (xN)으로 접고, 최대 줄 수 유지, 에러면 토스트 트리거.
     private void DrainQueueToBuffer()
     {
         while (_queue.TryDequeue(out var rec))
@@ -176,6 +195,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
         }
     }
 
+    // 버퍼의 모든 로그를 TMP 텍스트로 다시 조립하고, ScrollRect 가 있으면 맨 아래로 자동 스크롤.
     private void RebuildText()
     {
         if (!logText)
@@ -198,6 +218,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
         }
     }
 
+    // 로그 1건을 타입별 색상 태그(TMP RichText) + 시각 + 본문(+스택)으로 문자열 포맷.
     private string FormatOne(in LogRecord r)
     {
         // 색상 태그(TMP RichText)
@@ -221,12 +242,14 @@ public sealed class ErrorLogOverlay : MonoBehaviour
         }
     }
 
+    // 에러성 로그가 오면 토스트 패널에 메시지를 띄운다(toastGroup·toastText 둘 다 있을 때만). 메인 스레드에서 실행.
     private void ShowToastSafe(LogRecord rec)
     {
         if (!toastGroup || !toastText)
         {
             return;
         }
+
         var msg = $"{rec.Type} : {rec.Condition}";
         // 메인 스레드에서만 UI
         UnityMainThread(Action);
@@ -242,6 +265,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
         }
     }
 
+    // 토스트를 즉시 표시했다가 toastSeconds 후 자동으로 숨기는 코루틴.
     private System.Collections.IEnumerator FadeToast()
     {
         toastGroup.alpha = 1f;
@@ -251,6 +275,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
         toastGroup.gameObject.SetActive(false);
     }
 
+    // 메인 스레드에서 실행되어야 하는 UI 작업 실행 래퍼(현재는 Update 경유라 바로 호출).
     private void UnityMainThread(Action a)
     {
         // Update에서만 호출하므로 현재는 메인 스레드.
@@ -259,6 +284,7 @@ public sealed class ErrorLogOverlay : MonoBehaviour
     }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    // (에디터/개발 빌드) 핫키로 오버레이(토스트/스크롤뷰) 표시·숨김 토글.
     private void ToggleVisible()
     {
         var on = !(toastGroup ? toastGroup.gameObject.activeSelf : gameObject.activeSelf);
