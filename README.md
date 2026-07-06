@@ -21,11 +21,13 @@
 Assets/
 └── Project/
     ├── 1_Demos/                       # 🎮 기술 데모 & 미니 프로젝트
-    │   └── 2D_3D_Collision            # ✅ 완료
+    │   ├── 2D_3D_Collision            # ✅ 완료
+    │   └── PostProcessing_Exception   # ✅ 완료
     │
     ├── 2_Tutorials/                   # 📚 학습 & 강의
     │   ├── LevelUpYourCode/           # ✅ 완료
-    │   └── URP Shader Basic/          # ✅ 완료
+    │   ├── URP Shader Basic/          # ✅ 완료
+    │   └── Addressables/              # ✅ 완료
     │
     └── 3_Other/                       # 🧪 실험 & 기타
         └── ...
@@ -51,6 +53,26 @@ Assets/
 
 **📂 주요 스크립트 :**
 - `Shark3DCollider2DProjector.cs` : 3D 콜라이더를 2D 평면에 투영
+
+---
+
+### 1-2. [PostProcessing Exception - 선택적 포스트프로세싱](./Assets/Project/1_Demos/PostProcessing_Exception/README.MD)
+
+**기간 :** 2026.05.21 ~ 2026.05.22
+
+**주제 :** URP 환경에서 특정 UI/오브젝트에만 포스트프로세싱을 선택적으로 적용하거나 제외하는 방법 탐구
+
+**🔍 진행 배경 :**
+전체 씬에 블룸(Bloom)·색보정(Color Adjustments) 같은 PP 효과를 주면서, 특정 요소에는 효과를 다르게(또는 제외) 적용하고 싶은 문제를 세 가지 방식으로 비교·해결한 데모입니다.
+
+**✨ 핵심 기술 :**
+- **방법 1 - Camera Stacking** : Base/Overlay 카메라의 컬링 마스크 분리 (Bloom 완전 배제, 그림자 소실 → ShadowProxy 로 보완)
+- **방법 2 - Render Objects Feature** : PP 이후 특정 레이어 재렌더링 (그림자 정상, Bloom halo 잔존)
+- **방법 3 - Push Pop Layer** : Overlay 렌더 결과를 별도 캔버스에서 독립 PP 처리 후 합성 (레이어별 독립 PP)
+
+**📂 주요 스크립트 :**
+- `ShadowProxy.cs` : ShadowsOnly 프록시로 소실된 그림자 복원
+- `PushPopLayerRenderFeature.cs` + `BlendLayer.shader` : Push/Pop 방식의 독립 PP 합성
 
 
 ---
@@ -115,6 +137,30 @@ Assets/
 - ✅ [URP Shader Training #2](./Assets/Project/2_Tutorials/URP%20Shader%20Basic/URP%20Shader%20Training%20%232/README.md) - Alpha Cutout 및 렌더 스테이트
 - ✅ [URP Shader Training #3](./Assets/Project/2_Tutorials/URP%20Shader%20Basic/URP%20Shader%20Training%20%233/README.md) - UV 활용 및 버텍스 애니메이션
 - ✅ [URP Shader Training #4](./Assets/Project/2_Tutorials/URP%20Shader%20Basic/URP%20Shader%20Training%20%234/README.md) - 라이팅 기초 및 Toon/Rim Light
+
+---
+
+### 2-3. [Addressables - 원격 서버 패치 (Remote Content Delivery)](./Assets/Project/2_Tutorials/Addressables/README.md)
+
+**기간 :** 2026.07.03 ~ 2026.07.06
+
+**주제 :** Unity Addressables 로 원격 서버(XAMPP)에서 에셋을 다운로드/패치하는 전체 파이프라인 학습
+
+**🔍 진행 배경 :**
+모바일/PC 게임에서 자주 쓰는 "원격 서버에서 패치 파일 다운로드" 기능을 Addressables 로 구현하고, 로컬 테스트 서버(XAMPP)로 실제 배포 흐름과 동일하게 검증하기 위한 학습 프로젝트입니다.
+
+**✨ 핵심 기술 :**
+- **카탈로그(Catalog)** : 해시 비교로 콘텐츠 버전 변경 감지 (CheckForCatalogUpdates / UpdateCatalogs)
+- **다운로드 파이프라인** : 용량 계산(GetDownloadSize) → 번들 다운로드(DownloadDependencies) → 클라이언트 캐시
+- **Local / Remote 그룹** : 앱 내장 에셋과 서버 다운로드 에셋 분리
+- **배포 흐름** : 에셋 → (빌드) ServerData → (bat 복사) XAMPP → (HTTP) 게임
+
+**📂 주요 스크립트 :**
+- `SceneIntro.cs` : 카탈로그 확인 → 용량 계산 → 다운로드 → 키 입력 → Game 씬 이동
+- `SceneGame.cs` : 입력한 키로 Sprite 로드 데모
+- `CatalogUpdateExample.cs` : 버튼 분리형 카탈로그/다운로드 데모 (Test 씬)
+- `ErrorLogOverlay.cs` : 화면 내 콘솔 로그 오버레이 (F1 토글)
+- `Editor/AddressablesCacheTool.cs` : 번들 캐시 비우기 (Tools 메뉴)
 
 ---
 
