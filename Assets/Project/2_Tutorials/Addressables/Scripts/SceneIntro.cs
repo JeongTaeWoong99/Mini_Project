@@ -14,12 +14,14 @@ using Slider = UnityEngine.UI.Slider;
 /// <summary>
 /// SceneIntro
 /// - 앱 기동 시 실행되는 인트로 씬에서 Addressables 패치(카탈로그/리소스)를 관리하는 예제입니다.
+/// 
 /// - 플로우 :
 ///   1) CheckForCatalogUpdates : 카탈로그 변경 유무 확인 (네트워크 경량)
 ///   2) (변경 있음) 사용자 동의 후 UpdateCatalogs : 카탈로그 최신화 (리소스 다운로드는 아님)
 ///   3) GetDownloadSizeAsync : 실제 필요한 다운로드 용량 계산 (번들 단위 합산)
 ///   4) 팝업 안내 → 동의 시 DownloadDependenciesAsync(리소스 다운로드)
 ///   5) 완료/건너뛰기 시 Game 씬 진입
+/// 
 /// - 주의 :
 ///   * Addressables는 '리소스 단위'가 아닌 '번들 단위'로 다운로드합니다.
 ///   * UpdateCatalogs는 메타데이터 교체이므로, 그 자체로 대용량 다운로드가 발생하지 않습니다.
@@ -31,7 +33,7 @@ public class SceneIntro : MonoBehaviour
     // 인스펙터 노출 필드 (UI/옵션)
     // ===============================
 
-    [Header("< 진행률 UI (선택 표시) >")]
+    [CenterHeader("진행률 UI (선택 표시)")]
     [Tooltip("다운로드 진행 상황을 보여줄 UI 전체 컨테이너입니다. 다운로드 중에만 활성화됩니다.")]
     [SerializeField] private GameObject containerProgress;
 
@@ -41,7 +43,7 @@ public class SceneIntro : MonoBehaviour
     [Tooltip("진행 상태를 텍스트로 표시합니다. 예 : \"Download - 37%\"")]
     [SerializeField] private TextMeshProUGUI progressText;
 
-    [Header("< 다운로드 범위 (선택) >")]
+    [CenterHeader("다운로드 범위 (선택)")]
     [Tooltip(
         "Addressables에서 패치(다운로드) 대상 범위를 지정합니다.\n" +
         "비워두면 '현재 카탈로그가 알고 있는 모든 키'를 대상으로 계산/다운로드합니다(주의 : 과도할 수 있음).\n" +
@@ -50,7 +52,7 @@ public class SceneIntro : MonoBehaviour
     )]
     [SerializeField] private List<string> downloadScopes = new();
 
-    [Header("< 안내 팝업 >")]
+    [CenterHeader("안내 팝업")]
     [Tooltip("패치 용량 안내와 [확인/취소] 버튼을 담은 팝업입니다.")]
     public GameObject panelPopup;
 
@@ -118,6 +120,7 @@ public class SceneIntro : MonoBehaviour
     private void CheckUpdate()
     {
         var check = Addressables.CheckForCatalogUpdates();
+
         if (!check.IsValid())
         {
             Debug.LogError("[Addr] CheckForCatalogUpdates : 핸들 무효");
@@ -141,6 +144,7 @@ public class SceneIntro : MonoBehaviour
         }
 
         Debug.Log($"[Addr] CheckForCatalogUpdates 완료 : {check.Status}");
+
         if (check.Status != AsyncOperationStatus.Succeeded)
         {
             Debug.LogError("[Addr] 카탈로그 변경 확인 실패");
@@ -148,13 +152,16 @@ public class SceneIntro : MonoBehaviour
         }
 
         var list = check.Result; // 업데이트 필요 카탈로그 ID들
+
         if (list is { Count : > 0 })
         {
             Debug.Log($"[Addr] {list.Count}개의 카탈로그 업데이트 필요");
+
             foreach (var cat in list)
             {
                 Debug.Log($"   - {cat}");
             }
+
             _listUpdateCatalog = list;
 
             UpdateProgressUI(0f, "UpdateCatalogs Ready");
@@ -189,6 +196,7 @@ public class SceneIntro : MonoBehaviour
         }
 
         var update = Addressables.UpdateCatalogs(_listUpdateCatalog);
+
         if (!update.IsValid())
         {
             Debug.LogError("[Addr] UpdateCatalogs : 핸들 무효");
@@ -218,6 +226,7 @@ public class SceneIntro : MonoBehaviour
         if (update.Status == AsyncOperationStatus.Succeeded)
         {
             Debug.Log("카탈로그 갱신 완료");
+
             if (update.Result != null)
             {
                 foreach (var locator in update.Result)
@@ -271,15 +280,18 @@ public class SceneIntro : MonoBehaviour
     private void OnClickCheckDownloadSize()
     {
         var keys = BuildDownloadKeys();
+
         if (keys.Count == 0)
         {
             Debug.LogError("[Addr] 다운로드 대상 키가 없습니다.");
             UpdateProgressUI(0f, "No Targets");
+
             return;
         }
 
         // 키들을 '리소스 위치'로 해석 (중복 제거 : Union)
         var locHandle = Addressables.LoadResourceLocationsAsync(keys, Addressables.MergeMode.Union);
+
         if (!locHandle.IsValid())
         {
             Debug.LogError("[Addr] LoadResourceLocationsAsync : 핸들 무효");
@@ -295,15 +307,19 @@ public class SceneIntro : MonoBehaviour
             }
 
             IList<IResourceLocation> locations = locationsOp.Result;
+
             // 실제 네트워크 필요량(중복 번들 제거)을 계산
             var sizeHandle = Addressables.GetDownloadSizeAsync(locations);
+
             if (!sizeHandle.IsValid())
             {
                 Debug.LogError("[Addr] GetDownloadSizeAsync(locations) : 핸들 무효");
+
                 if (locationsOp.IsValid()) // 중요 : 로케이션 해제
                 {
                     Addressables.Release(locationsOp);
                 }
+
                 return;
             }
 
@@ -358,15 +374,19 @@ public class SceneIntro : MonoBehaviour
     private string GetSize(long bytes)
     {
         var mb = bytes / (1024f * 1024f);
+
         if (mb >= 0.1)
         {
             return $"{mb:F1} MB";
         }
+
         mb = mb / 1024f;
+
         if (mb >= 0.1)
         {
             return $"{mb:F1} KB";
         }
+
         return $"{bytes} bytes";
     }
 
@@ -379,9 +399,11 @@ public class SceneIntro : MonoBehaviour
     private void OnClickDownloadStart()
     {
         var keys = BuildDownloadKeys();
+
         if (keys.Count == 0)
         {
             UpdateProgressUI(0f, "No Targets");
+
             return;
         }
 
@@ -393,13 +415,16 @@ public class SceneIntro : MonoBehaviour
                 {
                     UpdateProgressUI(1f, "Nothing to download");
                     ShowEnterPrompt("다운로드할 내용이 없습니다. 아무 키나 눌러 게임을 시작하세요.");
+
                     return;
                 }
 
                 var dlHandle = Addressables.DownloadDependenciesAsync(remoteBundles, true);
+
                 if (!dlHandle.IsValid())
                 {
                     Debug.LogError("[Addr] DownloadDependenciesAsync(remoteBundles) : invalid handle");
+
                     return;
                 }
 
@@ -430,6 +455,7 @@ public class SceneIntro : MonoBehaviour
         {
             StopCoroutine(_progressRoutine);
         }
+
         _progressRoutine = StartCoroutine(CoTrackProgress(handle, label));
     }
 
@@ -439,8 +465,10 @@ public class SceneIntro : MonoBehaviour
         if (_progressRoutine != null)
         {
             StopCoroutine(_progressRoutine);
+
             _progressRoutine = null;
         }
+
         UpdateProgressUI(1f, labelDone);
     }
 
@@ -451,9 +479,11 @@ public class SceneIntro : MonoBehaviour
     private System.Collections.IEnumerator CoTrackProgress(AsyncOperationHandle handle, string label)
     {
         float lastLogged = -1f;
+
         while (!handle.IsDone)
         {
             float p = handle.PercentComplete;
+
             UpdateProgressUI(p, label);
 
             if (p - lastLogged >= 0.02f)
@@ -461,6 +491,7 @@ public class SceneIntro : MonoBehaviour
                 Debug.Log($"[Addr] {label} : {(int)(p * 100f)}%");
                 lastLogged = p;
             }
+
             yield return null;
         }
         UpdateProgressUI(1f, label + " Complete");
@@ -521,6 +552,7 @@ public class SceneIntro : MonoBehaviour
         }
 
         var set = new HashSet<object>();
+
         foreach (var locator in Addressables.ResourceLocators)
         {
             if (locator is IResourceLocator rl)
@@ -547,7 +579,9 @@ public class SceneIntro : MonoBehaviour
         {
             return false;
         }
+
         var id = loc.InternalId ?? string.Empty;
+
         // 가장 안전한 1차 판별 : URL 스킴
         if (id.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
             id.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
@@ -573,6 +607,7 @@ public class SceneIntro : MonoBehaviour
         while (stack.Count > 0)
         {
             var loc = stack.Pop();
+
             if (!visited.Add(loc))
             {
                 continue;
@@ -605,9 +640,11 @@ public class SceneIntro : MonoBehaviour
         Action<string> onError = null)
     {
         var locHandle = Addressables.LoadResourceLocationsAsync(keys, Addressables.MergeMode.Union);
+
         if (!locHandle.IsValid())
         {
             onError?.Invoke("LoadResourceLocationsAsync : invalid handle");
+
             return;
         }
 
@@ -616,6 +653,7 @@ public class SceneIntro : MonoBehaviour
             if (!op.IsValid() || op.Status != AsyncOperationStatus.Succeeded)
             {
                 onError?.Invoke("LoadResourceLocationsAsync failed");
+
                 return;
             }
 

@@ -17,19 +17,19 @@ using Slider = UnityEngine.UI.Slider;
 /// </summary>
 public class CatalogUpdateExample : MonoBehaviour
 {
-    [Header("< Demo >")]
+    [CenterHeader("Demo")]
     [Tooltip("사용자가 키(라벨/주소)를 직접 입력")]
     public TMP_InputField inputField;
     [Tooltip("로드한 스프라이트를 붙여서 잠시 보여줄 프리팹(예 : SpriteRenderer 포함)")]
     public GameObject prefab;
 
-    [Header("< Progress UI (선택) >")]
+    [CenterHeader("Progress UI (선택)")]
     [Tooltip("다운로드/업데이트 진행률 바")]
     [SerializeField] private Slider progressBar;
     [Tooltip("진행 상태 텍스트")]
     [SerializeField] private TextMeshProUGUI progressText;
 
-    [Header("< Download Scope (선택) >")]
+    [CenterHeader("Download Scope (선택)")]
     [Tooltip(
         "비워두면 모든 Addressables 키를 대상으로 합니다.\n" +
         "라벨이나 주소를 넣으면 해당 키들이 참조하는 번들을 다운로드합니다.\n" +
@@ -61,11 +61,13 @@ public class CatalogUpdateExample : MonoBehaviour
     private void CheckUpdate()
     {
         var check = Addressables.CheckForCatalogUpdates(); // 비동기 핸들 취득
+        
         if (!check.IsValid())
         {
             Debug.LogError("[Addr] CheckForCatalogUpdates : 핸들 무효");
             return;
         }
+        
         Debug.Log("[Addr] CheckForCatalogUpdates : 대기 중…");
 
         // Completed 콜백 : Task/await 대신 콜백 방식 사용
@@ -85,6 +87,7 @@ public class CatalogUpdateExample : MonoBehaviour
         }
 
         Debug.Log($"[Addr] CheckForCatalogUpdates 완료 : {check.Status}");
+        
         if (check.Status != AsyncOperationStatus.Succeeded)
         {
             Debug.LogError("[Addr] 카탈로그 변경 확인 실패");
@@ -92,13 +95,16 @@ public class CatalogUpdateExample : MonoBehaviour
         }
 
         var list = check.Result; // 업데이트 필요한 카탈로그 id 모음(없으면 비어있음)
+        
         if (list is { Count : > 0 })
         {
             Debug.Log($"[Addr] {list.Count}개의 카탈로그 업데이트 필요");
+            
             foreach (var cat in list)
             {
                 Debug.Log($"   - {cat}");
             }
+            
             _listUpdateCatalog = list;
 
             // UI : '업데이트 준비됨' 상태
@@ -129,6 +135,7 @@ public class CatalogUpdateExample : MonoBehaviour
         }
 
         var update = Addressables.UpdateCatalogs(_listUpdateCatalog); // 실제 카탈로그 갱신(메모리/디스크 반영)
+        
         if (!update.IsValid())
         {
             Debug.LogError("[Addr] UpdateCatalogs : 핸들 무효");
@@ -152,12 +159,14 @@ public class CatalogUpdateExample : MonoBehaviour
         if (!update.IsValid())
         {
             Debug.LogError("[Addr] UpdateCatalogs : Completed 시점 핸들 무효");
+            
             return;
         }
 
         if (update.Status == AsyncOperationStatus.Succeeded)
         {
             Debug.Log("카탈로그 갱신 완료");
+            
             if (update.Result != null)
             {
                 foreach (var locator in update.Result)
@@ -188,18 +197,22 @@ public class CatalogUpdateExample : MonoBehaviour
     public void OnClickCheckDownloadSize()
     {
         var keys = BuildDownloadKeys(); // 입력된 downloadScopes가 있으면 제한, 없으면 전체 키
+        
         if (keys.Count == 0)
         {
             Debug.LogError("[Addr] 다운로드 대상 키가 없습니다.");
             UpdateProgressUI(0f, "No Targets");
+            
             return;
         }
 
         // 키 집합을 '로케이션'으로 해석(Union : 합집합)
         var locHandle = Addressables.LoadResourceLocationsAsync(keys, Addressables.MergeMode.Union);
+        
         if (!locHandle.IsValid())
         {
             Debug.LogError("[Addr] LoadResourceLocationsAsync : 핸들 무효");
+            
             return;
         }
 
@@ -209,6 +222,7 @@ public class CatalogUpdateExample : MonoBehaviour
             if (!locationsOp.IsValid() || locationsOp.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError("[Addr] LoadResourceLocations 실패");
+                
                 return;
             }
 
@@ -217,11 +231,13 @@ public class CatalogUpdateExample : MonoBehaviour
 
             // 실제 다운로드 필요량(중복 번들 제거) 계산
             var sizeHandle = Addressables.GetDownloadSizeAsync(locations);
+            
             if (!sizeHandle.IsValid())
             {
                 Debug.LogError("[Addr] GetDownloadSizeAsync(locations) : 핸들 무효");
                 // locHandle 은 auto-release가 아님 → 해제
                 Addressables.Release(locationsOp);
+                
                 return;
             }
 
@@ -232,6 +248,7 @@ public class CatalogUpdateExample : MonoBehaviour
                 {
                     long bytes = sizeOp.Result;
                     var  mb    = GetSize(bytes);
+                    
                     Debug.Log($"[Addr] 필요 다운로드 용량 : {mb} ({bytes} bytes)");
                     UpdateProgressUI(0f, $"Need {mb}");
                     Addressables.Release(sizeOp); // size 핸들 해제
@@ -256,15 +273,19 @@ public class CatalogUpdateExample : MonoBehaviour
     private string GetSize(long bytes)
     {
         var mb = bytes / (1024f * 1024f);
+        
         if (mb >= 0.1)
         {
             return $"{mb:F1} MB";
         }
+        
         mb = mb / 1024f;
+        
         if (mb >= 0.1)
         {
             return $"{mb:F1} KB";
         }
+        
         return $"{bytes} bytes";
     }
 
@@ -276,40 +297,49 @@ public class CatalogUpdateExample : MonoBehaviour
     public void OnClickDownloadStart()
     {
         var keys = BuildDownloadKeys();
+        
         if (keys.Count == 0)
         {
             UpdateProgressUI(0f, "No Targets");
+            
             return;
         }
 
-        ResolveRemoteBundleLocations(
+        ResolveRemoteBundleLocations
+        (
             keys,
             onSuccess : remoteBundles =>
             {
                 if (remoteBundles.Count == 0)
                 {
                     UpdateProgressUI(1f, "Nothing to download");
+                    
                     return;
                 }
 
                 var dlHandle = Addressables.DownloadDependenciesAsync(remoteBundles, true);
+                
                 if (!dlHandle.IsValid())
                 {
                     Debug.LogError("[Addr] DownloadDependenciesAsync(remoteBundles) : invalid handle");
+                    
                     return;
                 }
 
                 BeginProgress(dlHandle, "Download");
+                
                 dlHandle.Completed += op =>
                 {
                     EndProgress("Download Complete");
                     Debug.Log("다운로드 완료");
+                    
                     if (op.IsValid())
                     {
                         Addressables.Release(op);
                     }
                 };
             },
+            
             onError : msg => Debug.LogError("[Addr] " + msg)
         );
     }
@@ -328,6 +358,7 @@ public class CatalogUpdateExample : MonoBehaviour
         {
             StopCoroutine(_progressRoutine);
         }
+        
         _progressRoutine = StartCoroutine(CoTrackProgress(handle, label));
     }
 
@@ -339,8 +370,10 @@ public class CatalogUpdateExample : MonoBehaviour
         if (_progressRoutine != null)
         {
             StopCoroutine(_progressRoutine);
+        
             _progressRoutine = null;
         }
+        
         UpdateProgressUI(1f, labelDone);
     }
 
@@ -351,9 +384,11 @@ public class CatalogUpdateExample : MonoBehaviour
     private System.Collections.IEnumerator CoTrackProgress(AsyncOperationHandle handle, string label)
     {
         float lastLogged = -1f;
+        
         while (!handle.IsDone)
         {
             float p = handle.PercentComplete; // 0~1
+            
             UpdateProgressUI(p, label);
 
             if (p - lastLogged >= 0.02f)
@@ -361,8 +396,10 @@ public class CatalogUpdateExample : MonoBehaviour
                 Debug.Log($"[Addr] {label} : {(int)(p * 100f)}%");
                 lastLogged = p;
             }
+            
             yield return null;
         }
+        
         UpdateProgressUI(1f, label + " Complete");
         _progressRoutine = null;
     }
@@ -400,6 +437,7 @@ public class CatalogUpdateExample : MonoBehaviour
 
         // 모든 키 수집 : 현재 로딩된 리소스 로케이터들의 키를 합집합으로 모음
         var set = new HashSet<object>();
+        
         foreach (var locator in Addressables.ResourceLocators)
         {
             if (locator is IResourceLocator rl)
@@ -410,6 +448,7 @@ public class CatalogUpdateExample : MonoBehaviour
                 }
             }
         }
+        
         return set.ToList();
     }
 
@@ -427,26 +466,32 @@ public class CatalogUpdateExample : MonoBehaviour
         if (prefab == null)
         {
             Debug.LogError("[Addr] prefab 참조가 비어있습니다.");
+            
             return;
         }
         if (inputField == null)
         {
             Debug.LogError("[Addr] inputField 참조가 비어있습니다.");
+            
             return;
         }
 
         var key = inputField.text; // 사용자가 입력한 Addressables 키(주소/라벨)
+        
         if (string.IsNullOrEmpty(key))
         {
             Debug.LogError("[Addr] inputField가 비어있습니다. inputField에 Key를 입력하세요.");
+            
             return;
         }
 
         // (바로 로드) LoadAssetAsync : 캐시에 번들이 없으면 즉시 네트워크 다운로드가 발생할 수 있음
         var handle = Addressables.LoadAssetAsync<Sprite>(key);
+        
         if (!handle.IsValid())
         {
             Debug.LogError($"[Addr] LoadAssetAsync<Sprite> : 핸들 무효. key : {key}");
+            
             return;
         }
 
@@ -456,22 +501,26 @@ public class CatalogUpdateExample : MonoBehaviour
             if (!op.IsValid())
             {
                 Debug.LogError("[Addr] LoadAssetAsync<Sprite] : Completed 시점 핸들 무효");
+                
                 return;
             }
 
             if (op.Status != AsyncOperationStatus.Succeeded || op.Result == null)
             {
                 Debug.LogError($"[Addr] Sprite 로드 실패 : {key} ({op.Status})");
+                
                 if (op.IsValid()) // 실패 시도라도 핸들 해제
                 {
                     Addressables.Release(op);
                 }
+                
                 return;
             }
 
             // 로드 성공 : 간단한 데모 오브젝트 생성 후 스프라이트 적용
             var obj = Instantiate(prefab, new Vector3(0, 1, 0), Quaternion.identity);
             var sr  = obj.GetComponent<SpriteRenderer>();
+            
             if (sr != null)
             {
                 sr.sprite = op.Result;
@@ -499,7 +548,9 @@ public class CatalogUpdateExample : MonoBehaviour
         {
             return false;
         }
+        
         var id = loc.InternalId ?? string.Empty;
+        
         // 가장 안전한 1차 판별 : URL 스킴
         if (id.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
             id.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
@@ -525,6 +576,7 @@ public class CatalogUpdateExample : MonoBehaviour
         while (stack.Count > 0)
         {
             var loc = stack.Pop();
+            
             if (!visited.Add(loc))
             {
                 continue;
@@ -551,15 +603,16 @@ public class CatalogUpdateExample : MonoBehaviour
     }
 
     // ===[3] 키 집합 → 원격 번들 로케이션만 해석 ===
-    private void ResolveRemoteBundleLocations(
-        List<object> keys,
-        Action<IList<IResourceLocation>> onSuccess,
-        Action<string> onError = null)
+    private void ResolveRemoteBundleLocations(List<object> keys,
+                                              Action<IList<IResourceLocation>> onSuccess,
+                                              Action<string> onError = null)
     {
         var locHandle = Addressables.LoadResourceLocationsAsync(keys, Addressables.MergeMode.Union);
+        
         if (!locHandle.IsValid())
         {
             onError?.Invoke("LoadResourceLocationsAsync : invalid handle");
+            
             return;
         }
 
@@ -568,6 +621,7 @@ public class CatalogUpdateExample : MonoBehaviour
             if (!op.IsValid() || op.Status != AsyncOperationStatus.Succeeded)
             {
                 onError?.Invoke("LoadResourceLocationsAsync failed");
+                
                 return;
             }
 

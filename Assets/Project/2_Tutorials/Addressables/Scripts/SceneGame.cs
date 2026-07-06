@@ -16,7 +16,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 /// </summary>
 public class SceneGame : MonoBehaviour
 {
-    [Header("< Demo >")]
+    [CenterHeader("Demo")]
     [Tooltip("사용자가 Addressables 키(라벨/주소)를 입력하는 필드입니다.")]
     public TMP_InputField inputField;
 
@@ -57,13 +57,16 @@ public class SceneGame : MonoBehaviour
         if (prefab == null)
         {
             Debug.LogError("[Addr] prefab 참조가 비어있습니다.");
+
             return;
         }
         if (inputField == null)
         {
             Debug.LogError("[Addr] inputField 참조가 비어있습니다.");
+
             return;
         }
+
         // 1) 키 확보
         var key = "";
         if (inputField && !string.IsNullOrEmpty(inputField.text))
@@ -74,6 +77,7 @@ public class SceneGame : MonoBehaviour
         if (string.IsNullOrEmpty(key))
         {
             Debug.LogError("[Addr] inputField가 비어있습니다. inputField에 Key를 입력하세요.");
+
             return;
         }
 
@@ -90,6 +94,7 @@ public class SceneGame : MonoBehaviour
         if (!handle.IsValid())
         {
             Debug.LogError("[Addr] LoadAssetAsync<Sprite> : 핸들 무효");
+
             return;
         }
 
@@ -102,18 +107,22 @@ public class SceneGame : MonoBehaviour
             if (!op.IsValid())
             {
                 Debug.LogError("[Addr] LoadAssetAsync<Sprite] : Completed 시점 핸들 무효");
+
                 return;
             }
 
             if (op.Status != AsyncOperationStatus.Succeeded || op.Result == null)
             {
                 Debug.LogError($"[Addr] Sprite 로드 실패 : {key} ({op.Status})");
+
                 // 실패 시 핸들 해제
                 if (op.IsValid())
                 {
                     Addressables.Release(op);
                 }
+
                 _lastLoadHandle = null;
+
                 return;
             }
 
@@ -121,18 +130,22 @@ public class SceneGame : MonoBehaviour
             if (prefab == null)
             {
                 Debug.LogError("[Addr] prefab 참조가 비어있습니다.");
+
                 // 더 이상 사용할 계획이 없으므로 핸들 해제
                 if (op.IsValid())
                 {
                     Addressables.Release(op);
                 }
+
                 _lastLoadHandle = null;
+
                 return;
             }
 
             // 6) 데모 오브젝트 생성 후 Sprite 적용
             var obj = Instantiate(prefab, new Vector3(0, 1, 0), Quaternion.identity);
             var sr  = obj.GetComponent<SpriteRenderer>();
+
             if (sr != null)
             {
                 sr.sprite = op.Result;
