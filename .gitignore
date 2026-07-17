@@ -78,3 +78,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Rr]esources/
 /[Aa]ssets/[Rr]esources.meta
 nul
+
+# Claude Code 개인 설정 (공유하지 않음)
+.claude/settings.local.json
